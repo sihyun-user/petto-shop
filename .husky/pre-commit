@@ -1,0 +1,13 @@
+# 執行代碼格式化
+npx pretty-quick --staged
+
+# 執行 ESLint 檢查
+npx eslint --fix .
+
+# 如果有錯誤或警告，則阻止提交
+if [ $? -ne 0 ]; then
+  echo "ESLint failed. Fix the errors before committing."
+  exit 1
+fi
+
+echo "trigger pre-commit"
