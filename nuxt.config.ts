@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   devServer: {
     port: 8080
   },
-  modules: ['@nuxt/ui', '@nuxtjs/supabase'],
+  modules: ['@nuxt/ui', '@nuxtjs/supabase', '@nuxt/image'],
   supabase: {
     redirect: false
   }
