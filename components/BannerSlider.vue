@@ -36,11 +36,8 @@
                 {{ slide.subtitle }}
               </h3>
               <p class="text-base md:text-lg lg:text-xl">{{ slide.desc }}</p>
-              <NuxtLink
-                to="/"
-                class="inline-block rounded bg-colorPrimary px-5 py-2 text-white hover:opacity-90"
-              >
-                立即購買
+              <NuxtLink to="/" class="inline-block">
+                <BaseButton :text="'立即購買'" />
               </NuxtLink>
             </div>
 

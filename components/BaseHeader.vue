@@ -10,7 +10,7 @@
         <!-- 漢堡按鈕 -->
         <UButton color="white" variant="ghost" class="md:hidden">
           <UIcon
-            class="h-7 w-7 text-colorPrimary hover:text-colorPrimaryDark"
+            class="hover:text-colorParimaryDark h-7 w-7 text-colorPrimary"
             :name="isMobileMenuOpen ? 'i-heroicons:x-mark' : 'i-heroicons:bars-3'"
             @click="isMobileMenuOpen = !isMobileMenuOpen"
           />
@@ -71,15 +71,15 @@
           <UButton
             icon="i-heroicons-magnifying-glass"
             variant="ghost"
-            class="text-colorGary hover:bg-transparent hover:text-colorSecondary"
+            class="text-colorGary hover:bg-transparent hover:text-colorPrimaryDark"
           />
           <UButton
             icon="i-heroicons:shopping-cart-solid"
             variant="ghost"
-            class="text-colorGary relative hover:bg-transparent hover:text-colorSecondary"
+            class="text-colorGary relative hover:bg-transparent hover:text-colorPrimaryDark"
           >
             <span
-              class="absolute -right-1 -top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-colorSecondary text-xs text-white shadow"
+              class="absolute -right-1 -top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimary text-xs text-white shadow"
             >
               5
             </span>
@@ -88,7 +88,7 @@
             <UButton
               icon="i-heroicons:user-20-solid"
               variant="ghost"
-              class="text-colorGary hover:bg-transparent hover:text-colorSecondary"
+              class="text-colorGary hover:bg-transparent hover:text-colorPrimaryDark"
             />
           </NuxtLink>
         </div>
@@ -139,15 +139,15 @@
             <UButton
               icon="i-heroicons-magnifying-glass"
               variant="ghost"
-              class="text-colorGary hover:bg-transparent hover:text-colorSecondary"
+              class="text-colorGary hover:bg-transparent hover:text-colorPrimaryDark"
             />
             <UButton
               icon="i-heroicons:shopping-cart-solid"
               variant="ghost"
-              class="text-colorGary relative hover:bg-transparent hover:text-colorSecondary"
+              class="text-colorGary relative hover:bg-transparent hover:text-colorPrimaryDark"
             >
               <span
-                class="absolute -right-1 -top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-colorSecondary text-xs text-white shadow"
+                class="absolute -right-1 -top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimaryDark text-xs text-white shadow"
               >
                 5
               </span>
@@ -156,7 +156,7 @@
               <UButton
                 icon="i-heroicons:user-20-solid"
                 variant="ghost"
-                class="text-colorGary hover:bg-transparent hover:text-colorSecondary"
+                class="text-colorGary hover:bg-transparent hover:text-colorPrimaryDark"
               />
             </NuxtLink>
           </div>
