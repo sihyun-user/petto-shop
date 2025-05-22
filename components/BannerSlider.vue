@@ -1,73 +1,60 @@
 <template>
-  <ClientOnly>
-    <div class="md: relative h-auto pt-[80px] md:h-screen md:pt-0">
-      <!-- 背景圖 -->
-      <div
-        class="absolute inset-0 bg-cover bg-center"
-        style="background-image: url('/images/banner_bg.jpg')"
-      ></div>
-
-      <!-- 白色透明遮罩 -->
-      <div class="absolute inset-0 bg-white/70"></div>
-
-      <!-- Swiper 輪播內容 -->
-      <swiper-container
-        class="relative z-10 h-full"
-        :loop="true"
-        :autoplay="{ delay: 3000, disableOnInteraction: false }"
-        :pagination="{ clickable: true }"
-      >
-        <swiper-slide
-          v-for="(slide, index) in banners"
-          :key="`slide-${index}`"
-          class="flex h-full items-center justify-center"
+  <div class="sliderWrapper">
+    <Swiper
+      :loop="true"
+      :modules="modules"
+      :autoplay="{ delay: 3000, disableOnInteraction: false }"
+      :pagination="{ clickable: true }"
+      class="swiper"
+    >
+      <SwiperSlide v-for="(slide, index) in banners" :key="`slide-${index}`">
+        <div
+          class="container relative z-20 mx-auto flex flex-col-reverse items-center justify-between px-6 md:flex-row lg:px-12"
         >
+          <!-- 文字區 -->
           <div
-            class="container relative z-20 mx-auto flex h-full flex-col-reverse items-center justify-between px-6 md:flex-row lg:px-12"
+            class="space-y-4 pb-[50px] pt-[30px] text-center text-textPrimary md:py-0 md:pr-5 md:text-left"
           >
-            <!-- 文字區 -->
-            <div
-              class="space-y-4 pb-[100px] pt-[40px] text-center text-textPrimary md:p-0 md:text-left"
-            >
-              <h1 class="text-3xl font-bold md:text-4xl lg:text-5xl">
-                {{ slide.title }}
-              </h1>
-              <h3 class="text-xl font-semibold text-colorPrimary md:text-2xl">
-                {{ slide.subtitle }}
-              </h3>
-              <p class="text-base md:text-lg lg:text-xl">{{ slide.desc }}</p>
-              <NuxtLink to="/" class="inline-block">
-                <BaseButton :text="'立即購買'" />
-              </NuxtLink>
-            </div>
+            <h1 class="text-3xl font-bold md:text-4xl lg:text-5xl">
+              {{ slide.title }}
+            </h1>
+            <h3 class="text-xl font-semibold text-colorPrimary md:text-2xl">
+              {{ slide.subtitle }}
+            </h3>
+            <p class="text-base md:text-lg lg:text-xl">{{ slide.desc }}</p>
+            <NuxtLink to="/" class="inline-block">
+              <BaseButton :text="'立即購買'" />
+            </NuxtLink>
+          </div>
 
-            <!-- 圖片區 -->
-            <div class="shake-0 flex">
-              <div
-                class="relative h-[350px] w-[350px] overflow-hidden rounded-full border-4 border-white shadow md:h-[380px] md:w-[380px] lg:h-[450px] lg:w-[450px]"
-              >
-                <NuxtImg
-                  :src="slide.img"
-                  alt="Banner Image"
-                  class="h-full w-full object-cover"
-                  quality="80"
-                />
-              </div>
+          <!-- 圖片區 -->
+          <div class="relative">
+            <div
+              class="h-[300px] w-[300px] rounded-full bg-colorPrimary lg:h-[400px] lg:w-[400px]"
+            ></div>
+
+            <div class="absolute -top-12 left-0 z-10 flex w-[350px] lg:w-[450px]">
+              <NuxtImg :src="slide.img" alt="Banner Image" quality="80" class="" />
             </div>
           </div>
-        </swiper-slide>
-
-        <div class="swiper-pagination absolute bottom-12 left-1/2 z-30 -translate-x-1/2" />
-      </swiper-container>
-    </div>
-  </ClientOnly>
+        </div>
+      </SwiperSlide>
+    </Swiper>
+  </div>
 </template>
 
 <script setup lang="ts">
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination, Autoplay } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/pagination'
+
+const modules = [Pagination, Autoplay]
+
 const banners = [
   {
     img: '/images/slider_img_1.png',
-    title: '花最少時間，買對毛孩好物',
+    title: '毛孩生活好物推薦',
     subtitle: '寵物食品 x 玩具 x 日用品',
     desc: '精選高評價商品，從挑選到下單超省時，讓你更有時間陪伴毛孩。'
   },
@@ -86,13 +73,25 @@ const banners = [
 ]
 </script>
 
-<style scoped>
-.swiper-pagination {
-  position: absolute;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  background: red;
+<style scoped lang="scss">
+.swiper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 120px;
+  padding-bottom: 0;
+
+  @media (min-width: 768px) {
+    padding-bottom: 100px;
+  }
+}
+.sliderWrapper {
+  :global(.swiper-pagination-bullet) {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 40px;
+    background: #967d6c;
+  }
 }
 </style>
