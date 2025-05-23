@@ -9,7 +9,7 @@
     >
       <SwiperSlide v-for="(slide, index) in banners" :key="`slide-${index}`">
         <div
-          class="container relative z-20 mx-auto flex flex-col-reverse items-center justify-between px-6 md:flex-row lg:px-12"
+          class="container relative z-20 flex flex-col-reverse items-center justify-between md:flex-row"
         >
           <!-- 文字區 -->
           <div
@@ -23,7 +23,7 @@
             </h3>
             <p class="text-base md:text-lg lg:text-xl">{{ slide.desc }}</p>
             <NuxtLink to="/" class="inline-block">
-              <BaseButton :text="'立即購買'" />
+              <UiBaseButton :text="'立即購買'" />
             </NuxtLink>
           </div>
 
@@ -75,6 +75,7 @@ const banners = [
 
 <style scoped lang="scss">
 .swiper {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
