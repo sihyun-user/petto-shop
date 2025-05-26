@@ -6,3 +6,11 @@ export interface Product {
   specialPrice?: number
   category: string
 }
+
+export interface Atricle {
+  id: number
+  name: string
+  description: string
+  image: string
+  date: string
+}

@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: false,
   theme: {
     extend: {
       colors: {
@@ -12,6 +13,9 @@ module.exports = {
         textSecondary: '#786056',
         textGary: '#959595',
         boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px'
+      },
+      screens: {
+        xs: '480px'
       },
       container: {
         center: true,

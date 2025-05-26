@@ -8,14 +8,14 @@
   </UButton>
 </template>
 <script setup lang="ts">
-const props = defineProps({
-  type: {
-    type: String,
-    default: 'button'
-  },
-  text: {
-    type: String,
-    default: ''
+const props = withDefaults(
+  defineProps<{
+    type?: string
+    text?: string
+  }>(),
+  {
+    type: 'button',
+    text: ''
   }
-})
+)
 </script>

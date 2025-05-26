@@ -1,16 +1,23 @@
 <template>
   <div
-    class="relative w-full max-w-[480px] rounded-lg bg-cover bg-center px-[25px] py-[65px]"
-    style="background-image: url('/images/unboxing_1.jpg')"
+    class="relative h-[180px] w-full overflow-hidden rounded-lg bg-cover bg-center px-[30px] py-[65px]"
+    :style="{ backgroundImage: `url(${props.data.image})` }"
   >
     <NuxtLink to="/">
-      <!-- <div
-      class="absolute inset-0 bg-cover bg-center"
-      style="background-image: url('/images/banner_bg.jpg')"
-    ></div> -->
-      <div class="absolute inset-0 bg-white/10"></div>
-      <h4 class="">鏟屎日常救星</h4>
-      <p class="">貓主子開心用、奴才輕鬆鏟，雙贏！</p>
+      <div class="absolute inset-0 bg-black/30"></div>
+      <div class="relative z-10 w-[60%] text-white">
+        <h4 class="line-clamp-1">{{ props.data.title }}</h4>
+        <p class="line-clamp-2">{{ props.data.description }}</p>
+      </div>
     </NuxtLink>
   </div>
 </template>
+<script setup lang="ts">
+const props = defineProps<{
+  data: {
+    title: string
+    description: string
+    image: string
+  }
+}>()
+</script>

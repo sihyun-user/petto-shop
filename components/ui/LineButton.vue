@@ -1,6 +1,7 @@
 <template>
   <UButton
     :type="props.type"
+    :icon="props.icon"
     variant="solid"
     class="flex items-center justify-center rounded-full border border-colorPrimary bg-white text-colorPrimary hover:bg-colorPrimary hover:text-white md:px-5 md:py-2"
   >
@@ -8,14 +9,16 @@
   </UButton>
 </template>
 <script setup lang="ts">
-const props = defineProps({
-  type: {
-    type: String,
-    default: 'button'
-  },
-  text: {
-    type: String,
-    default: ''
+const props = withDefaults(
+  defineProps<{
+    type?: string
+    icon?: string
+    text?: string
+  }>(),
+  {
+    type: 'button',
+    text: '',
+    icon: ''
   }
-})
+)
 </script>

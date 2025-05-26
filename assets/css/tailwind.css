@@ -7,7 +7,17 @@
     @apply text-2xl font-bold md:text-3xl;
   }
 
+  h3 {
+    @apply text-lg font-bold md:text-xl;
+  }
+
   h4 {
     @apply text-xl font-semibold;
+  }
+}
+
+@layer components {
+  .grid-template-areas {
+    @apply grid grid-cols-1 gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
   }
 }

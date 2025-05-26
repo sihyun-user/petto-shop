@@ -18,7 +18,7 @@
               @click="activeCategory = category"
             />
           </div>
-          <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+          <div class="grid-template-areas">
             <UiProductCard
               v-for="item in filteredProducts"
               :key="item.id"
@@ -35,7 +35,7 @@
           <h4 class="text-textSecondary">專為毛孩設計的玩具</h4>
           <h2 class="text-textPrimary">專為毛孩打造，咬咬最對味</h2>
         </div>
-        <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <div class="grid-template-areas">
           <UiProductCard
             v-for="item in filteredProducts.slice(0, 4)"
             :key="item.id"
@@ -51,7 +51,23 @@
           <h4 class="text-textSecondary">開箱測評</h4>
           <h2 class="text-textPrimary">寵物達人實測，選出最愛好物</h2>
         </div>
-        <UiBoxCard />
+        <LayoutBoxSlider />
+      </div>
+    </section>
+    <section>
+      <div class="container py-[60px]">
+        <div class="mb-7 space-y-1 text-center">
+          <h4 class="text-textSecondary">毛孩專欄</h4>
+          <h2 class="text-textPrimary">成為最懂毛孩的好主人</h2>
+        </div>
+        <div class="grid grid-cols-1 gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <UiArticleCard
+            v-for="item in articles.slice(0, 4)"
+            :key="item.id"
+            :article="item"
+            class="animate-fadeInUp"
+          />
+        </div>
       </div>
     </section>
   </div>
@@ -129,4 +145,21 @@ const filteredProducts = computed(() => {
   if (activeCategory.value === '所有商品') return products.value
   return products.value.filter((p) => p.category === activeCategory.value)
 })
+
+const articles = ref([
+  {
+    id: 1,
+    name: '如何選擇適合的貓糧？',
+    image: '/images/unboxing_3.jpg',
+    description:
+      '選擇適合的貓糧對於貓咪的健康至關重要。本文將介紹如何根據貓咪的年齡、體型和健康狀況選擇合適的貓糧。'
+  },
+  {
+    id: 2,
+    name: '貓咪日常護理指南',
+    image: '/images/unboxing_4.jpg',
+    description:
+      '貓咪的日常護理包括飲食、清潔和健康檢查等。本文將提供一些實用的護理技巧，幫助你更好地照顧你的毛孩。'
+  }
+])
 </script>
