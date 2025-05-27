@@ -173,7 +173,6 @@ const isMobileMenuOpen = ref(false)
 
 const navLinks = [
   { label: '首頁', to: '/' },
-  { label: '目錄', to: '/' },
   {
     label: '所有商品',
     children: [

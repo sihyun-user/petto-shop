@@ -13,4 +13,5 @@ export interface Atricle {
   description: string
   image: string
   date: string
+  author: string
 }

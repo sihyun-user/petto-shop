@@ -1,5 +1,4 @@
 module.exports = {
-  darkMode: false,
   theme: {
     extend: {
       colors: {
@@ -8,9 +7,11 @@ module.exports = {
         colorPrimaryDark: '#786056',
         colorSecondary: '#bda697',
         colorGray: '#e5e7eb',
+        colorBlack: '#333333',
         colorRed: '#f87171',
         textPrimary: '#333333',
         textSecondary: '#786056',
+        textTertiary: '#bda697',
         textGary: '#959595',
         boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px'
       },

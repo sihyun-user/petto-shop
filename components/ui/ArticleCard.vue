@@ -11,6 +11,9 @@
 
     <div class="flex flex-1 flex-col justify-between p-3 md:p-4">
       <NuxtLink to="/" class="mb-2 inline-block">
+        <div class="text-sm text-textPrimary">
+          {{ format(new Date(props.article.date), 'yyyy.MM.dd') }}
+        </div>
         <h3 class="line-clamp-2 font-bold text-textPrimary hover:text-textSecondary">
           {{ props.article.name }}
         </h3>
@@ -28,6 +31,7 @@
 </template>
 <script setup lang="ts">
 import type { Atricle } from '~/types'
+import { format } from 'date-fns'
 
 const props = defineProps<{
   article: Atricle

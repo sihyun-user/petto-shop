@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+*:focus {
+  outline: none;
+}
+
 @layer base {
   h2 {
     @apply text-2xl font-bold md:text-3xl;
@@ -12,7 +16,7 @@
   }
 
   h4 {
-    @apply text-xl font-semibold;
+    @apply text-xl font-semibold md:text-[18px];
   }
 }
 
