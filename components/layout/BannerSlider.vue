@@ -13,7 +13,7 @@
         >
           <!-- 文字區 -->
           <div
-            class="space-y-4 pb-[50px] pt-[30px] text-center text-textPrimary md:py-0 md:pr-5 md:text-left"
+            class="space-y-4 pb-[50px] pt-[30px] text-center text-colorBlack md:py-0 md:pr-5 md:text-left"
           >
             <h1 class="text-3xl font-bold md:text-4xl lg:text-5xl">
               {{ slide.title }}
@@ -23,7 +23,7 @@
             </h3>
             <p class="text-base md:text-lg lg:text-xl">{{ slide.desc }}</p>
             <NuxtLink to="/" class="inline-block">
-              <UiBaseButton :text="'立即購買'" />
+              <UiBaseButton text="立即購買" />
             </NuxtLink>
           </div>
 

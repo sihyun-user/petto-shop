@@ -2,7 +2,7 @@
   <UButton
     :type="props.type"
     :icon="props.icon"
-    variant="solid"
+    variant="line"
     class="flex items-center justify-center rounded-full border border-colorPrimary bg-white text-colorPrimary hover:bg-colorPrimary hover:text-white md:px-5 md:py-2"
   >
     {{ props.text }}

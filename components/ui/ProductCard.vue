@@ -11,16 +11,18 @@
 
     <div class="flex flex-1 flex-col justify-between p-3 md:p-4">
       <NuxtLink to="/" class="mb-2 inline-block">
-        <h3 class="line-clamp-2 text-textPrimary">{{ props.product.name }}</h3>
+        <h3 class="line-clamp-2 text-colorBlack hover:text-colorBlackDark">
+          {{ props.product.name }}
+        </h3>
       </NuxtLink>
       <div class="flex flex-col space-y-2">
         <div>
-          <div v-if="props.product.specialPrice" class="text-sm text-textGary line-through">
+          <div v-if="props.product.specialPrice" class="text-sm text-colorGrayDark line-through">
             ${{ props.product.specialPrice }}
           </div>
           <div class="text-xl font-bold text-colorRed">${{ props.product.price }}</div>
         </div>
-        <UiBaseButton :text="'加入購物車'" />
+        <UiBaseButton text="加入購物車" />
       </div>
     </div>
   </div>

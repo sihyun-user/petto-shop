@@ -29,8 +29,3 @@ useHead({
   titleTemplate: '%s | petto-shop 寵物食品、玩具與用品，讓你的寵物更快樂'
 })
 </script>
-<style>
-body {
-  font-family: 'Helvetica Neue', 'PingFang TC', 'Heiti TC', '微軟正黑體', sans-serif;
-}
-</style>

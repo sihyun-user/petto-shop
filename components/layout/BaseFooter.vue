@@ -23,17 +23,17 @@
       </div>
       <div class="hidden flex-col space-y-4 text-center md:flex md:w-2/12">
         <h4 class="underline underline-offset-8">探索我們</h4>
-        <NuxtLink to="/" class="hover:text-textTertiary">最新消息</NuxtLink>
-        <NuxtLink to="/" class="hover:text-textTertiary">關於我們</NuxtLink>
-        <NuxtLink to="/" class="hover:text-textTertiary">聯絡我們</NuxtLink>
-        <NuxtLink to="/" class="hover:text-textTertiary">銷售據點</NuxtLink>
+        <NuxtLink to="/" class="hover:text-colorSecondary">最新消息</NuxtLink>
+        <NuxtLink to="/" class="hover:text-colorSecondary">關於我們</NuxtLink>
+        <NuxtLink to="/" class="hover:text-colorSecondary">聯絡我們</NuxtLink>
+        <NuxtLink to="/" class="hover:text-colorSecondary">銷售據點</NuxtLink>
       </div>
       <div class="hidden flex-col space-y-4 text-center md:flex md:w-2/12">
         <h4 class="underline underline-offset-8">服務項目</h4>
-        <NuxtLink to="/" class="hover:text-textTertiary">會員權益</NuxtLink>
-        <NuxtLink to="/" class="hover:text-textTertiary">購物須知</NuxtLink>
-        <NuxtLink to="/" class="hover:text-textTertiary">配送問題</NuxtLink>
-        <NuxtLink to="/" class="hover:text-textTertiary">常見問題</NuxtLink>
+        <NuxtLink to="/" class="hover:text-colorSecondary">會員權益</NuxtLink>
+        <NuxtLink to="/" class="hover:text-colorSecondary">購物須知</NuxtLink>
+        <NuxtLink to="/" class="hover:text-colorSecondary">配送問題</NuxtLink>
+        <NuxtLink to="/" class="hover:text-colorSecondary">常見問題</NuxtLink>
       </div>
       <div class="hidden flex-col space-y-4 md:flex md:w-4/12 lg:w-3/12">
         <h4 class="underline underline-offset-8">訂閱我們</h4>
@@ -43,7 +43,7 @@
               v-model="state.email"
               variant="none"
               placeholder="請輸入您的電子郵件"
-              class="rounded-md bg-white text-textPrimary"
+              class="rounded-md bg-white text-colorBlack"
               size="lg"
             />
 
@@ -51,7 +51,7 @@
               type="submit"
               color="black"
               variant="solid"
-              class="absolute -right-1 top-0 rounded-none rounded-r-md bg-colorPrimary px-5 py-[10px] hover:bg-colorPrimaryDark"
+              class="absolute right-0 top-0 rounded-none rounded-r-md bg-colorPrimary px-5 py-[10px] hover:bg-colorPrimaryDark"
             >
               送出</UButton
             >

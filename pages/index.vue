@@ -6,8 +6,8 @@
       <div class="bg-colorPrimaryLight">
         <div class="container pb-[60px]">
           <div class="mb-7 space-y-1 text-center">
-            <h4 class="text-textSecondary">毛孩最愛口味</h4>
-            <h2 class="text-textPrimary">人氣寵糧熱銷推薦</h2>
+            <h4 class="text-colorPrimaryDarky">毛孩最愛口味</h4>
+            <h2 class="text-colorBlack">人氣寵糧熱銷推薦</h2>
           </div>
           <div class="mb-4 flex justify-center space-x-2">
             <UiLineButton
@@ -32,8 +32,8 @@
     <section>
       <div class="container py-[60px]">
         <div class="mb-7 space-y-1 text-center">
-          <h4 class="text-textSecondary">專為毛孩設計的玩具</h4>
-          <h2 class="text-textPrimary">專為毛孩打造，咬咬最對味</h2>
+          <h4 class="text-colorPrimaryDarky">專為毛孩設計的玩具</h4>
+          <h2 class="text-colorBlack">專為毛孩打造，咬咬最對味</h2>
         </div>
         <div class="grid-template-areas">
           <UiProductCard
@@ -48,8 +48,8 @@
     <section class="bg-colorPrimaryLight">
       <div class="container py-[60px]">
         <div class="mb-7 space-y-1 text-center">
-          <h4 class="text-textSecondary">開箱測評</h4>
-          <h2 class="text-textPrimary">寵物達人實測，選出最愛好物</h2>
+          <h4 class="text-colorPrimaryDarky">開箱測評</h4>
+          <h2 class="text-colorBlack">寵物達人實測，選出最愛好物</h2>
         </div>
         <LayoutBoxSlider />
       </div>
@@ -57,8 +57,8 @@
     <section>
       <div class="container py-[60px]">
         <div class="mb-7 space-y-1 text-center">
-          <h4 class="text-textSecondary">毛孩專欄</h4>
-          <h2 class="text-textPrimary">成為最懂毛孩的好主人</h2>
+          <h4 class="text-colorPrimaryDarky">毛孩專欄</h4>
+          <h2 class="text-colorBlack">成為最懂毛孩的好主人</h2>
         </div>
         <div class="grid grid-cols-1 gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <UiArticleCard
@@ -74,6 +74,9 @@
 </template>
 <script setup lang="ts">
 import type { Product } from '~/types'
+useSeoMeta({
+  title: '首頁'
+})
 
 const categories = ['所有商品', '乾糧', '罐頭', '凍乾']
 const activeCategory = ref('所有商品')
