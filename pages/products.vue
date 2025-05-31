@@ -32,12 +32,41 @@
             ]"
           />
         </div>
-        <div class="grid gap-4 xs:grid-cols-2 lg:grid-cols-3">
+        <div class="mb-8 grid gap-4 xs:grid-cols-2 lg:grid-cols-3">
           <UiProductCard
             v-for="item in products.slice(0, 4)"
             :key="item.id"
             :product="item"
             class="animate-fadeInUp"
+          />
+        </div>
+        <div class="flex justify-center">
+          <UPagination
+            v-model="page"
+            :page-count="5"
+            :total="items.length"
+            :to="
+              (page: number) => ({
+                query: { page }
+              })
+            "
+            :ui="{
+              default: {
+                size: 'md',
+                activeButton: {
+                  class: 'bg-colorPrimary text-white hover:bg-colorPrimaryDark'
+                },
+                inactiveButton: {
+                  class: 'hover:bg-white text-colorBlack hover:text-colorPrimaryDark'
+                },
+                prevButton: {
+                  class: 'hover:!bg-white text-colorBlack bg-white'
+                },
+                nextButton: {
+                  class: 'hover:!bg-white text-colorBlack bg-white '
+                }
+              }
+            }"
           />
         </div>
       </main>
@@ -112,4 +141,6 @@ const products = ref<Product[]>([
     image: '/images/product_img.png'
   }
 ])
+const page = ref(1)
+const items = ref(Array(50))
 </script>
