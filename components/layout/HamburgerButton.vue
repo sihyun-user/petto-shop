@@ -3,36 +3,55 @@
     <UButton color="white" variant="ghost" class="md:hidden">
       <UIcon
         class="hover:text-colorParimaryDark h-7 w-7 text-colorPrimary"
-        :name="isMobileMenuOpen ? 'i-heroicons:x-mark' : 'i-heroicons:bars-3'"
-        @click="isMobileMenuOpen = !isMobileMenuOpen"
+        :name="isOpen ? 'i-heroicons:x-mark' : 'i-heroicons:bars-3'"
+        @click="isOpen = !isOpen"
       />
     </UButton>
 
-    <Transition
-      enter-active-class="transition-transform duration-300 ease-out"
-      enter-from-class="translate-x-full"
-      enter-to-class="translate-x-0"
-      leave-active-class="transition-transform duration-200 ease-in"
-      leave-from-class="translate-x-0"
-      leave-to-class="translate-x-full"
-    >
-      <div
-        v-if="isMobileMenuOpen"
-        class="fixed inset-y-0 right-0 z-50 flex w-[300px] max-w-sm flex-col items-center justify-center overflow-auto bg-white p-6 shadow-lg md:hidden"
-      >
-        <nav class="w-full space-y-4 text-center">
-          <NuxtLink
-            v-for="(link, i) in navLinks"
-            :key="i"
-            :to="link.to"
-            class="block text-lg font-medium text-colorBlack hover:text-colorPrimary"
-            @click="isMobileMenuOpen = false"
-          >
-            {{ link.label }}
-          </NuxtLink>
+    <USlideover v-model="isOpen">
+      <div class="flex justify-end p-4">
+        <UButton
+          color="gray"
+          variant="ghost"
+          size="sm"
+          class="bg-transparent text-colorPrimary hover:bg-transparent"
+          square
+          padded
+          @click="isOpen = false"
+        >
+          <UIcon class="h-8 w-8 text-colorPrimary" name="i-heroicons:x-mark" />
+        </UButton>
+      </div>
+      <div class="flex h-full flex-col justify-between overflow-y-auto bg-white px-6 pb-8">
+        <nav class="space-y-4 pt-2">
+          <template v-for="link in navLinks" :key="link.label">
+            <div v-if="link.children">
+              <div class="mb-1 text-base font-semibold text-colorBlack">{{ link.label }}</div>
+              <ul class="ml-3 space-y-1">
+                <li v-for="child in link.children" :key="child.to">
+                  <NuxtLink
+                    :to="child.to"
+                    class="block rounded px-2 py-1 text-sm text-gray-600 hover:bg-colorSecondary hover:text-white"
+                    @click="isOpen = false"
+                  >
+                    {{ child.label }}
+                  </NuxtLink>
+                </li>
+              </ul>
+            </div>
+            <div v-else>
+              <NuxtLink
+                :to="link.to"
+                class="block text-base font-semibold text-colorBlack hover:text-colorPrimary"
+                @click="isOpen = false"
+              >
+                {{ link.label }}
+              </NuxtLink>
+            </div>
+          </template>
         </nav>
 
-        <div class="mt-6 flex space-x-4">
+        <div class="flex items-center justify-center space-x-4">
           <UButton
             icon="i-heroicons-magnifying-glass"
             variant="ghost"
@@ -58,17 +77,11 @@
           </NuxtLink>
         </div>
       </div>
-    </Transition>
-
-    <div
-      v-if="isMobileMenuOpen"
-      class="fixed inset-0 z-40 bg-black/50 md:hidden"
-      @click="isMobileMenuOpen = false"
-    ></div>
+    </USlideover>
   </div>
 </template>
 <script setup lang="ts">
 const navLinks = useNavLinks()
 
-const isMobileMenuOpen = ref(false)
+const isOpen = ref(false)
 </script>
