@@ -10,7 +10,12 @@
       </div>
     </div>
 
-    <USlideover v-model="isOpen">
+    <USlideover
+      v-model="isOpen"
+      :ui="{
+        width: 'max-w-[300px] w-full'
+      }"
+    >
       <div class="flex justify-end p-4">
         <UButton
           color="gray"

@@ -12,7 +12,7 @@
               <button
                 :class="
                   clsx(
-                    'relative flex h-full items-center gap-1 font-medium text-colorBlack hover:text-colorPrimary',
+                    'relative flex h-full items-center gap-1 font-medium text-colorGrayDark hover:text-colorPrimary',
                     'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-colorPrimary',
                     'after:opacity-0 after:transition-all after:duration-500 after:ease-in-out group-hover:after:opacity-100'
                   )
@@ -24,13 +24,18 @@
               </button>
 
               <div
-                class="pointer-events-none absolute left-0 top-full z-20 translate-y-3 transform rounded bg-white opacity-0 shadow transition duration-300 ease-in-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100"
+                :class="
+                  clsx(
+                    'pointer-events-none absolute left-0 top-full z-20 translate-y-3 transform rounded bg-white opacity-0 shadow',
+                    'group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100'
+                  )
+                "
               >
                 <ul class="min-w-[180px] space-y-1 p-2">
                   <li v-for="child in link.children" :key="child.to">
                     <NuxtLink
                       :to="child.to"
-                      class="block rounded px-4 py-2 text-sm text-colorBlack hover:bg-colorSecondary hover:text-white"
+                      class="block rounded px-4 py-2 text-sm font-medium text-colorGrayDark hover:bg-colorGrayLight hover:text-colorPrimary"
                     >
                       {{ child.label }}
                     </NuxtLink>
@@ -44,7 +49,7 @@
               :to="link.to"
               :class="
                 clsx(
-                  'relative flex h-full items-center font-medium text-colorBlack hover:text-colorPrimary',
+                  'relative flex h-full items-center font-medium text-colorGrayDark hover:text-colorPrimary',
                   'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-colorPrimary',
                   'after:opacity-0 after:transition-all after:duration-500 after:ease-in-out hover:after:opacity-100'
                 )
