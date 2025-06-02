@@ -1,17 +1,9 @@
 <template>
   <div>
-    <div class="relative">
-      <NuxtImg
-        src="images/banner_bg_2.jpg"
-        height="450"
-        class="h-[150px] w-full object-cover md:h-[350px]"
-      />
-      <div class="absolute inset-0 bg-black/30"></div>
-      <div class="center-absolute flex flex-col items-center justify-center space-y-1 md:space-y-2">
-        <h1 class="text-nowrap text-white">| 全館商品總覽 |</h1>
-        <span class="text-white">貓貓系列/主食/罐頭</span>
-      </div>
-    </div>
+    <LayoutBannerBreadcrumb
+      title="全館商品總覽"
+      :links="[{ label: '貓貓系列' }, { label: '主食' }, { label: '罐頭' }]"
+    />
     <section class="container flex py-[40px] md:py-[60px]">
       <div class="mr-5 hidden min-w-[200px] md:block">
         <UiAsideMenu />
@@ -49,7 +41,7 @@
 </template>
 <script setup lang="ts">
 import type { Product } from '~/types'
-useSeoMeta({
+usePageSeo({
   title: '全館商品總覽'
 })
 

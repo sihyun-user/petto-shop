@@ -11,5 +11,5 @@ export const useNavLinks = () => [
   },
   { label: '寵物專欄', to: '/' },
   { label: '關於我們', to: '/' },
-  { label: '聯絡我們', to: '/' }
+  { label: '聯絡我們', to: '/contact' }
 ]
