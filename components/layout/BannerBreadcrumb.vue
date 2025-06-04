@@ -10,10 +10,11 @@
       <h1 class="text-nowrap text-white">| {{ props.title }} |</h1>
       <UBreadcrumb
         divider="/"
-        :links="props.links"
+        :links="[{ label: '首頁', to: '/' }, ...props.links]"
         :ui="{
           li: 'text-white',
-          active: 'text-white'
+          active: 'text-white',
+          inactive: 'hover:text-white'
         }"
       />
     </div>

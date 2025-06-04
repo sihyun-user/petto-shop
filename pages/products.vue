@@ -4,7 +4,7 @@
       title="全館商品總覽"
       :links="[{ label: '貓貓系列' }, { label: '主食' }, { label: '罐頭' }]"
     />
-    <section class="container flex py-[40px] md:py-[60px]">
+    <section class="container flex py-[40px]">
       <div class="mr-5 hidden min-w-[200px] md:block">
         <UiAsideMenu />
       </div>
