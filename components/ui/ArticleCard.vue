@@ -14,9 +14,7 @@
         <div class="text-sm text-colorBlack">
           {{ format(new Date(props.article.date), 'yyyy.MM.dd') }}
         </div>
-        <h3
-          class="hover:text-colorPrimaryDarky line-clamp-2 font-bold text-colorBlack hover:text-colorBlackDark"
-        >
+        <h3 class="line-clamp-2 font-bold text-colorBlack hover:text-colorPrimaryDark">
           {{ props.article.name }}
         </h3>
       </NuxtLink>

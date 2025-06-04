@@ -6,7 +6,7 @@
       <div class="bg-colorPrimaryLight">
         <div class="container pb-[60px]">
           <div class="mb-7 space-y-1 text-center">
-            <h4 class="text-colorPrimaryDarky">毛孩最愛口味</h4>
+            <h4 class="text-colorPrimaryDark">毛孩最愛口味</h4>
             <h2 class="text-colorBlack">人氣寵糧熱銷推薦</h2>
           </div>
           <div class="mb-4 flex justify-center space-x-2">
@@ -32,7 +32,7 @@
     <section>
       <div class="container py-[60px]">
         <div class="mb-7 space-y-1 text-center">
-          <h4 class="text-colorPrimaryDarky">專為毛孩設計的玩具</h4>
+          <h4 class="text-colorPrimaryDark">專為毛孩設計的玩具</h4>
           <h2 class="text-colorBlack">專為毛孩打造，咬咬最對味</h2>
         </div>
         <div class="grid-template-areas">
@@ -48,7 +48,7 @@
     <section class="bg-colorPrimaryLight">
       <div class="container py-[60px]">
         <div class="mb-7 space-y-1 text-center">
-          <h4 class="text-colorPrimaryDarky">開箱測評</h4>
+          <h4 class="text-colorPrimaryDark">開箱測評</h4>
           <h2 class="text-colorBlack">寵物達人實測，選出最愛好物</h2>
         </div>
         <LayoutBoxSlider />
@@ -57,7 +57,7 @@
     <section>
       <div class="container py-[60px]">
         <div class="mb-7 space-y-1 text-center">
-          <h4 class="text-colorPrimaryDarky">毛孩專欄</h4>
+          <h4 class="text-colorPrimaryDark">毛孩專欄</h4>
           <h2 class="text-colorBlack">成為最懂毛孩的好主人</h2>
         </div>
         <div class="grid grid-cols-1 gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LayoutBannerBreadcrumb title="聯絡我們" :links="[{ label: '聯絡我們' }]" />
+    <LayoutBannerBreadcrumb title="關於我們" :links="[{ label: '關於我們' }]" />
     <section class="container pt-[40px]">
       <div class="w-full rounded border border-colorGray bg-colorGrayLight p-4">
         <UForm
