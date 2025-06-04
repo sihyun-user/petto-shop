@@ -15,3 +15,9 @@ body {
 *:focus {
   outline: none;
 }
+
+.top-center-notification {
+  top: 50px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}

@@ -37,7 +37,7 @@
       </div>
       <div class="hidden flex-col space-y-4 md:flex md:w-4/12 lg:w-3/12">
         <h4 class="underline underline-offset-8">訂閱我們</h4>
-        <UForm class="relative" :state="state" :schema="schema" @submit.prevent="submit">
+        <UForm class="relative" :state="state" :schema="schema" @submit="submit">
           <UFormGroup name="email">
             <UInput
               v-model="state.email"

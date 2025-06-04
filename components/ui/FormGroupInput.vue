@@ -3,7 +3,7 @@
     <UInput
       :model-value="props.modelValue"
       :placeholder="props.placeholder"
-      class="rounded-md bg-white text-colorBlack"
+      class="rounded-md border border-colorGray bg-white text-colorBlack"
       variant="none"
       size="lg"
       @update:model-value="emit('update:modelValue', $event)"
@@ -27,7 +27,7 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
-    default: '請輸入您的電子郵件'
+    default: ''
   },
   required: {
     type: Boolean,

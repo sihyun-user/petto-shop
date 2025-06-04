@@ -10,13 +10,11 @@
           <template v-for="(link, index) in navLinks" :key="index">
             <div v-if="link.children" class="group relative h-full items-center">
               <button
-                :class="
-                  clsx(
-                    'relative flex h-full items-center gap-1 font-medium text-colorGrayDark hover:text-colorPrimary',
-                    'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-colorPrimary',
-                    'after:opacity-0 after:transition-all after:duration-500 after:ease-in-out group-hover:after:opacity-100'
-                  )
-                "
+                :class="[
+                  'relative flex h-full items-center gap-1 font-medium text-colorGrayDark hover:text-colorPrimary',
+                  'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-colorPrimary',
+                  'after:opacity-0 after:transition-all after:duration-500 after:ease-in-out group-hover:after:opacity-100'
+                ]"
                 type="button"
               >
                 {{ link.label }}
@@ -24,12 +22,10 @@
               </button>
 
               <div
-                :class="
-                  clsx(
-                    'pointer-events-none absolute left-0 top-full z-20 translate-y-3 transform rounded bg-white opacity-0 shadow',
-                    'group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100'
-                  )
-                "
+                :class="[
+                  'pointer-events-none absolute left-0 top-full z-20 translate-y-3 transform rounded bg-white opacity-0 shadow',
+                  'group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100'
+                ]"
               >
                 <ul class="min-w-[180px] space-y-1 p-2">
                   <li v-for="child in link.children" :key="child.to">
@@ -47,13 +43,11 @@
             <NuxtLink
               v-else
               :to="link.to"
-              :class="
-                clsx(
-                  'relative flex h-full items-center font-medium text-colorGrayDark hover:text-colorPrimary',
-                  'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-colorPrimary',
-                  'after:opacity-0 after:transition-all after:duration-500 after:ease-in-out hover:after:opacity-100'
-                )
-              "
+              :class="[
+                'relative flex h-full items-center font-medium text-colorGrayDark hover:text-colorPrimary',
+                'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-colorPrimary',
+                'after:opacity-0 after:transition-all after:duration-500 after:ease-in-out hover:after:opacity-100'
+              ]"
             >
               {{ link.label }}
             </NuxtLink>
@@ -93,6 +87,5 @@
 </template>
 
 <script setup lang="ts">
-import clsx from 'clsx'
 const navLinks = useNavLinks()
 </script>

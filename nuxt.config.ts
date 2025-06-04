@@ -9,5 +9,10 @@ export default defineNuxtConfig({
   modules: ['@nuxt/ui', '@nuxtjs/supabase', '@nuxt/image'],
   supabase: {
     redirect: false
+  },
+  vite: {
+    optimizeDeps: {
+      exclude: ['estree-walker']
+    }
   }
 })
