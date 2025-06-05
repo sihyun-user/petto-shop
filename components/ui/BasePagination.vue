@@ -2,8 +2,9 @@
   <div class="flex justify-center">
     <UPagination
       v-model="page"
-      :page-count="5"
-      :total="items.length"
+      :page-count="limit"
+      :total="props.total"
+      :to="getPageLink"
       :ui="{
         default: {
           size: 'md',
@@ -24,7 +25,30 @@
     />
   </div>
 </template>
+
 <script setup lang="ts">
-const page = ref(1)
-const items = ref(Array(50))
+const props = withDefaults(
+  defineProps<{
+    total: number
+    limit?: number
+  }>(),
+  {
+    total: 0,
+    limit: 10
+  }
+)
+
+const route = useRoute()
+
+const page = ref(Number(route.query.page) || 1)
+
+const getPageLink = (page: number) => {
+  return {
+    path: route.path,
+    query: {
+      ...route.query,
+      page
+    }
+  }
+}
 </script>

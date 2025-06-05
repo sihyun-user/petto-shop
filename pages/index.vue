@@ -15,7 +15,7 @@
               :key="category"
               :text="category"
               :class="{ 'bg-colorPrimary text-white': activeCategory === category }"
-              @click="activeCategory = category"
+              @click="handleCategoryChange(category)"
             />
           </div>
           <div class="grid-template-areas">
@@ -73,76 +73,15 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { Product } from '~/types'
 useSeoMeta({
   title: '首頁'
 })
 
-const categories = ['所有商品', '乾糧', '罐頭', '凍乾']
+const router = useRouter()
+const route = useRoute()
+const categories = ['所有商品', '主食', '零食', '生活用品']
 const activeCategory = ref('所有商品')
-
-const products = ref<Product[]>([
-  {
-    id: 1,
-    name: '全齡貓無穀鮭魚雞肉凍乾（火雞+鮭魚）1.8公斤',
-    price: 1200,
-    specialPrice: 1000,
-    category: '凍乾',
-    image: '/images/product_img.png'
-  },
-  {
-    id: 2,
-    name: '低磷無穀雞肉貓糧',
-    price: 1400,
-    specialPrice: 900,
-    category: '乾糧',
-    image: '/images/product_img.png'
-  },
-  {
-    id: 3,
-    name: '全齡貓鱈魚凍乾箱購',
-    price: 1400,
-    category: '凍乾',
-    image: '/images/product_img.png'
-  },
-  {
-    id: 4,
-    name: '貓用無膠鮮肉鮪魚罐頭',
-    price: 150,
-    category: '罐頭',
-    image: '/images/product_img.png'
-  },
-  {
-    id: 5,
-    name: '全齡貓無穀鮭魚雞肉凍乾（火雞+鮭魚）1.8公斤',
-    price: 1200,
-    specialPrice: 1000,
-    category: '罐頭',
-    image: '/images/product_img.png'
-  },
-  {
-    id: 6,
-    name: '低磷無穀雞肉貓糧',
-    price: 1400,
-    specialPrice: 900,
-    category: '乾糧',
-    image: '/images/product_img.png'
-  },
-  {
-    id: 7,
-    name: '全齡貓鱈魚凍乾箱購',
-    price: 1400,
-    category: '罐頭',
-    image: '/images/product_img.png'
-  },
-  {
-    id: 8,
-    name: '貓用無膠鮮肉鮪魚罐頭',
-    price: 150,
-    category: '罐頭',
-    image: '/images/product_img.png'
-  }
-])
+const limit = ref(9)
 
 const filteredProducts = computed(() => {
   if (activeCategory.value === '所有商品') return products.value
@@ -187,4 +126,24 @@ const articles = ref([
     date: '2025-03-23T00:00:00Z'
   }
 ])
+
+const { products, refresh } = useProducts({
+  limit: limit.value
+})
+
+const handleCategoryChange = (category: string) => {
+  activeCategory.value = category
+
+  router.push({
+    query: { category: category === '所有商品' ? undefined : category }
+  })
+}
+
+watch(
+  [() => route.fullPath],
+  () => {
+    refresh()
+  },
+  { immediate: true }
+)
 </script>

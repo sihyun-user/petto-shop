@@ -25,14 +25,17 @@
       <ul class="flex flex-col space-y-4 text-sm">
         <!-- 狗狗系列 -->
         <li>
-          <div class="block border-b border-colorGray pb-2 font-medium text-colorBlack">
+          <NuxtLink
+            to="/products?pet_type=dog"
+            class="block border-b border-colorGray pb-2 font-medium text-colorBlack"
+          >
             狗狗系列
-          </div>
+          </NuxtLink>
           <ul class="mt-2 space-y-4">
             <!-- 主食 -->
             <li>
               <NuxtLink
-                to="/products?category=貓主食"
+                to="/products?pet_type=dog&category=主食"
                 class="block pl-4 text-colorBlack hover:text-colorPrimary"
               >
                 主食
@@ -40,7 +43,7 @@
               <ul class="mt-2 space-y-2 pl-8">
                 <li>
                   <NuxtLink
-                    to="/products?subcategory=貓乾糧"
+                    to="/products?pet_type=dog&category=主食&subcategory=乾糧"
                     class="text-colorGrayDark hover:text-colorPrimary"
                   >
                     乾糧
@@ -48,7 +51,7 @@
                 </li>
                 <li>
                   <NuxtLink
-                    to="/products?subcategory=貓罐頭"
+                    to="/products?pet_type=dog&category=主食&subcategory=罐頭"
                     class="text-colorGrayDark hover:text-colorPrimary"
                   >
                     罐頭
@@ -59,7 +62,7 @@
             <!-- 零食 -->
             <li>
               <NuxtLink
-                to="/products?category=貓主食"
+                to="/products?pet_type=dog&category=零食"
                 class="block pl-4 text-colorBlack hover:text-colorPrimary"
               >
                 零食
@@ -67,7 +70,7 @@
               <ul class="mt-2 space-y-2 pl-8">
                 <li>
                   <NuxtLink
-                    to="/products?subcategory=貓乾糧"
+                    to="/products?pet_type=dog&category=零食&subcategory=凍乾"
                     class="text-colorGrayDark hover:text-colorPrimary"
                   >
                     凍乾
@@ -75,15 +78,7 @@
                 </li>
                 <li>
                   <NuxtLink
-                    to="/products?subcategory=貓罐頭"
-                    class="text-colorGrayDark hover:text-colorPrimary"
-                  >
-                    潔牙骨
-                  </NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink
-                    to="/products?subcategory=貓凍乾"
+                    to="/products?pet_type=dog&category=零食&subcategory=點心"
                     class="text-colorGrayDark hover:text-colorPrimary"
                   >
                     點心
@@ -93,16 +88,19 @@
             </li>
           </ul>
         </li>
-        <!-- 貓貓系列 -->
+        <!-- 貓咪系列 -->
         <li>
-          <div class="block border-b border-colorGray pb-2 font-medium text-colorBlack">
+          <NuxtLink
+            to="/products?pet_type=cat"
+            class="block border-b border-colorGray pb-2 font-medium text-colorBlack"
+          >
             貓貓系列
-          </div>
+          </NuxtLink>
           <ul class="mt-2 space-y-4">
             <!-- 主食 -->
             <li>
               <NuxtLink
-                to="/products?category=貓主食"
+                to="/products?pet_type=cat&category=主食"
                 class="block pl-4 text-colorBlack hover:text-colorPrimary"
               >
                 主食
@@ -110,7 +108,7 @@
               <ul class="mt-2 space-y-2 pl-8">
                 <li>
                   <NuxtLink
-                    to="/products?subcategory=貓乾糧"
+                    to="/products?pet_type=cat&category=主食&subcategory=乾糧"
                     class="text-colorGrayDark hover:text-colorPrimary"
                   >
                     乾糧
@@ -118,7 +116,7 @@
                 </li>
                 <li>
                   <NuxtLink
-                    to="/products?subcategory=貓罐頭"
+                    to="/products?pet_type=cat&category=主食&subcategory=罐頭"
                     class="text-colorGrayDark hover:text-colorPrimary"
                   >
                     罐頭
@@ -129,7 +127,7 @@
             <!-- 零食 -->
             <li>
               <NuxtLink
-                to="/products?category=貓主食"
+                to="/products?pet_type=cat&category=零食"
                 class="block pl-4 text-colorBlack hover:text-colorPrimary"
               >
                 零食
@@ -137,7 +135,7 @@
               <ul class="mt-2 space-y-2 pl-8">
                 <li>
                   <NuxtLink
-                    to="/products?subcategory=貓乾糧"
+                    to="/products?pet_type=cat&category=零食&subcategory=凍乾"
                     class="text-colorGrayDark hover:text-colorPrimary"
                   >
                     凍乾
@@ -145,15 +143,7 @@
                 </li>
                 <li>
                   <NuxtLink
-                    to="/products?subcategory=貓罐頭"
-                    class="text-colorGrayDark hover:text-colorPrimary"
-                  >
-                    潔牙餅
-                  </NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink
-                    to="/products?subcategory=貓凍乾"
+                    to="/products?pet_type=cat&category=零食&subcategory=點心"
                     class="text-colorGrayDark hover:text-colorPrimary"
                   >
                     點心
@@ -166,10 +156,10 @@
         <!-- 其他主分類 -->
         <li>
           <NuxtLink
-            to="/products?category=毛孩用品"
+            to="/products?category=清潔洗護"
             class="block border-b border-colorGray pb-2 font-medium text-colorBlack hover:text-colorPrimary"
           >
-            毛孩用品
+            清潔洗護
           </NuxtLink>
         </li>
         <li>
@@ -178,6 +168,22 @@
             class="block border-b border-colorGray pb-2 font-medium text-colorBlack hover:text-colorPrimary"
           >
             玩具
+          </NuxtLink>
+        </li>
+        <li>
+          <NuxtLink
+            to="/products?category=生活用品"
+            class="block border-b border-colorGray pb-2 font-medium text-colorBlack hover:text-colorPrimary"
+          >
+            生活用品
+          </NuxtLink>
+        </li>
+        <li>
+          <NuxtLink
+            to="/products?category=其他"
+            class="block border-b border-colorGray pb-2 font-medium text-colorBlack hover:text-colorPrimary"
+          >
+            其他
           </NuxtLink>
         </li>
       </ul>

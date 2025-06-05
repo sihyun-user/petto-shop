@@ -2,7 +2,11 @@
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "moduleResolution": "node"
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "types": ["@types/node"]
   },
   "include": ["env.d.ts", ".nuxt/nuxt.d.ts", "**/*"]
 }

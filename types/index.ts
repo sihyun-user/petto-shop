@@ -1,10 +1,15 @@
 export interface Product {
-  id: number
+  id: string
   name: string
-  image: string
-  price: number
-  specialPrice?: number
   category: string
+  subcategory: string
+  price: number
+  discount: number | null
+  description: string
+  image: string
+  pet_type: 'dog' | 'cat'
+  stock: number
+  created_at: string
 }
 
 export interface Atricle {

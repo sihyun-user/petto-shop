@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <NuxtImg
-      src="images/banner_bg_2.jpg"
+      src="images/products/pet.jpg"
       height="450"
       class="h-[150px] w-full object-cover md:h-[350px]"
     />

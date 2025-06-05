@@ -2,7 +2,7 @@
   <div class="flex h-auto w-full flex-col overflow-hidden rounded-lg bg-white shadow">
     <NuxtLink to="/">
       <NuxtImg
-        :src="props.product.image"
+        :src="`images/products/${props.product.image}.jpg`"
         height="200"
         class="h-[200px] w-full object-cover"
         alt="商品圖片"
@@ -17,10 +17,11 @@
       </NuxtLink>
       <div class="flex flex-col space-y-2">
         <div>
-          <div v-if="props.product.specialPrice" class="text-sm text-colorGrayDark line-through">
-            ${{ props.product.specialPrice }}
+          <div v-if="props.product.discount && props.product.discount < props.product.price">
+            <div class="text-sm text-colorGrayDark line-through">${{ props.product.price }}</div>
+            <div class="text-xl font-bold text-colorRed">${{ props.product.discount }}</div>
           </div>
-          <div class="text-xl font-bold text-colorRed">${{ props.product.price }}</div>
+          <div v-else class="text-xl font-bold text-colorBlack">${{ props.product.price }}</div>
         </div>
         <UiBaseButton text="加入購物車" />
       </div>
