@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LayoutBannerBreadcrumb title="全館商品總覽" :links="breadcrumbLinks" />
+    <LayoutBannerBreadcrumb :title="`${seoTitle.split('/').pop()}`" :links="breadcrumbLinks" />
     <section class="container flex py-[40px]">
       <div class="mr-5 hidden min-w-[200px] md:block">
         <UiAsideMenu />
@@ -48,23 +48,39 @@
   </div>
 </template>
 <script setup lang="ts">
-usePageSeo({
-  title: '全館商品總覽'
-})
-
 const route = useRoute()
 const router = useRouter()
 const sortOrder = ref('newest')
 const limit = ref(9)
 
+const slug = (route.params.slug as string[] | undefined) ?? []
+const { pet_type, category, subcategory } = useParsedParams(slug)
+
+const seoTitle = computed(() => {
+  const titleParts = []
+  if (pet_type) titleParts.push(pet_type === '貓' ? '貓貓系列' : '狗狗系列')
+  if (category) titleParts.push(category)
+  if (subcategory) titleParts.push(subcategory)
+  return titleParts.length > 0 ? `${titleParts.join('/')}` : '全館商品總覽'
+})
+
+usePageSeo({
+  title: seoTitle.value
+})
+
 const breadcrumbLinks = computed(() => {
   const links = []
 
-  const { pet_type, category, subcategory } = route.query
+  const slug = route.params.slug as string[] | undefined
+  const { pet_type, category, subcategory } = useParsedParams(slug ?? [])
 
-  if (pet_type === 'cat') {
+  if (!slug) {
+    links.push({ label: '全館商品總覽', to: '/products' })
+  }
+
+  if (pet_type === '貓') {
     links.push({ label: '貓貓系列' })
-  } else if (pet_type === 'dog') {
+  } else if (pet_type === '狗') {
     links.push({ label: '狗狗系列' })
   }
 

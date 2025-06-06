@@ -9,17 +9,17 @@
         <nav class="hidden h-full items-center gap-6 md:flex">
           <template v-for="(link, index) in navLinks" :key="index">
             <div v-if="link.children" class="group relative h-full items-center">
-              <button
+              <NuxtLink
+                :to="link.to"
                 :class="[
                   'relative flex h-full items-center gap-1 font-medium text-colorGrayDark hover:text-colorPrimary',
                   'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-colorPrimary',
                   'after:opacity-0 after:transition-all after:duration-500 after:ease-in-out group-hover:after:opacity-100'
                 ]"
-                type="button"
               >
                 {{ link.label }}
                 <UIcon name="i-heroicons:chevron-down" class="h-4 w-4 text-colorBlack" />
-              </button>
+              </NuxtLink>
 
               <div
                 :class="[

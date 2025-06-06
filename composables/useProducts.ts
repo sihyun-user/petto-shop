@@ -15,14 +15,17 @@ export const useProducts = ({
   const to = computed(() => from.value + limit - 1)
 
   const queryKey = computed(() => {
-    const { pet_type, category, subcategory, sort, page } = route.query
+    const slug = route.params.slug as string[] | undefined
+    const { pet_type, category, subcategory } = useParsedParams(slug ?? [])
+    const { sort, page } = route.query
+
     return [
       'products',
-      pet_type || '',
-      category || '',
-      subcategory || '',
-      sort || '',
-      page || '',
+      pet_type,
+      category,
+      subcategory,
+      sort,
+      page,
       limit,
       categoryParam?.value
     ].join('-')
@@ -31,7 +34,9 @@ export const useProducts = ({
   const { data, pending, refresh } = useAsyncData(
     queryKey,
     async () => {
-      const { pet_type, category, subcategory, sort } = route.query
+      const slug = route.params.slug as string[] | undefined
+      const { pet_type, category, subcategory } = useParsedParams(slug ?? [])
+      const { sort } = route.query
 
       let query = supabase
         .from('products')

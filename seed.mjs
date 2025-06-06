@@ -6,7 +6,7 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
   auth: { persistSession: false }
 })
 
-const petTypes = ['dog', 'cat']
+const petTypes = ['狗', '貓']
 const categories = [
   { name: '主食', subcategories: ['乾糧', '罐頭'] },
   { name: '零食', subcategories: ['凍乾', '點心'] },
@@ -50,7 +50,7 @@ async function seedProducts() {
 
     // 名稱組合：形容詞 + 狗/貓 + 子分類 （只有主食和零食會分貓狗）
     const name = ['主食', '零食'].includes(category)
-      ? `${faker.word.adjective()} ${petType === 'dog' ? '狗' : '貓'}${subcategory}`
+      ? `${faker.word.adjective()} ${petType === '狗' ? '狗' : '貓'}${subcategory}`
       : `${faker.word.adjective()} ${subcategory}`
 
     const price = faker.number.int({ min: 300, max: 1500 })

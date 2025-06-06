@@ -7,7 +7,7 @@ export interface Product {
   discount: number | null
   description: string
   image: string
-  pet_type: 'dog' | 'cat'
+  pet_type: '狗' | '貓'
   stock: number
   created_at: string
 }
