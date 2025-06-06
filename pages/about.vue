@@ -53,7 +53,7 @@
       </div>
     </section>
     <section class="container py-[40px]">
-      <div class="relative flex w-full justify-center overflow-hidden rounded-lg md:h-[240px]">
+      <div class="relative flex h-[240px] w-full justify-center overflow-hidden rounded-lg">
         <div class="center-absolute z-10 flex w-full flex-col items-center">
           <h2 class="text-start text-white">關於寵物商城 Petto Shop</h2>
           <div class="mt-5">
@@ -83,12 +83,12 @@
     </section>
     <section class="container">
       <div class="mb-7 space-y-1 text-center">
-        <h4 class="text-colorPrimaryDark">營業資訊</h4>
-        <h4 class="text-colorBlack">
+        <h3 class="text-colorPrimaryDark">營業資訊</h3>
+        <p class="font-semibold text-colorBlack">
           週一至週日 10:00 - 20:00｜全年無休<br />
           地點：台北市信義區毛孩街 88 號<br />
           電話：02-1234-5678
-        </h4>
+        </p>
       </div>
     </section>
   </div>

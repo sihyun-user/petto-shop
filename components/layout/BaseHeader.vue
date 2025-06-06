@@ -31,7 +31,10 @@
                   <li v-for="child in link.children" :key="child.to">
                     <NuxtLink
                       :to="child.to"
-                      class="block rounded px-4 py-2 text-sm font-medium text-colorGrayDark hover:bg-colorGrayLight hover:text-colorPrimary"
+                      :class="[
+                        'block rounded px-4 py-2 text-sm font-medium text-colorGrayDark hover:bg-colorGrayLight hover:text-colorPrimary',
+                        route.path === child.to ? 'bg-colorGrayLight text-colorPrimary' : ''
+                      ]"
                     >
                       {{ child.label }}
                     </NuxtLink>
@@ -46,7 +49,8 @@
               :class="[
                 'relative flex h-full items-center font-medium text-colorGrayDark hover:text-colorPrimary',
                 'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-colorPrimary',
-                'after:opacity-0 after:transition-all after:duration-500 after:ease-in-out hover:after:opacity-100'
+                'after:opacity-0 after:transition-all after:duration-500 after:ease-in-out hover:after:opacity-100',
+                route.path === link.to ? 'text-colorPrimary after:opacity-100' : ''
               ]"
             >
               {{ link.label }}
@@ -88,4 +92,7 @@
 
 <script setup lang="ts">
 const navLinks = useNavLinks()
+
+const route = useRoute()
+console.log('Current route:', route.path)
 </script>
