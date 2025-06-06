@@ -8,30 +8,12 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
 
 const petTypes = ['dog', 'cat']
 const categories = [
-  {
-    name: '主食',
-    subcategories: ['乾糧', '罐頭']
-  },
-  {
-    name: '零食',
-    subcategories: ['凍乾', '點心']
-  },
-  {
-    name: '玩具',
-    subcategories: ['逗貓棒', '狗咬膠', '毛絨玩具']
-  },
-  {
-    name: '清潔洗護',
-    subcategories: ['洗毛精', '除蚤液', '清耳液']
-  },
-  {
-    name: '生活用品',
-    subcategories: ['項圈', '牽繩', '貓砂盆', '便盆']
-  },
-  {
-    name: '其他',
-    subcategories: ['智能餵食器', '定位器', '自動飲水機', '外出繩']
-  }
+  { name: '主食', subcategories: ['乾糧', '罐頭'] },
+  { name: '零食', subcategories: ['凍乾', '點心'] },
+  { name: '玩具', subcategories: ['逗貓棒', '狗咬膠', '毛絨玩具'] },
+  { name: '清潔洗護', subcategories: ['洗毛精', '除蚤液', '清耳液'] },
+  { name: '生活用品', subcategories: ['項圈', '牽繩', '貓砂盆', '便盆'] },
+  { name: '其他', subcategories: ['智能餵食器', '定位器', '自動飲水機', '外出繩'] }
 ]
 
 function generateProductFeature(name, category, subcategory) {
@@ -40,7 +22,6 @@ function generateProductFeature(name, category, subcategory) {
   }日常使用。`
 }
 
-// 依照主分類回傳圖片關鍵字，做為動態圖片 URL 使用
 function getImageKeywordByCategory(categoryName) {
   if (['主食', '零食'].includes(categoryName)) return 'food'
   if (categoryName === '玩具') return 'toy'
@@ -49,9 +30,7 @@ function getImageKeywordByCategory(categoryName) {
 }
 
 async function seedProducts() {
-  // 刪除現有產品資料
   const { error: deleteError } = await supabase.from('products').delete().gte('id', 0)
-
   if (deleteError) {
     console.error('Error deleting existing data:', deleteError)
     return
@@ -59,23 +38,28 @@ async function seedProducts() {
 
   const products = []
 
-  for (let i = 0; i < 100; i++) {
-    const petType = faker.helpers.arrayElement(petTypes)
+  for (let i = 0; i < 150; i++) {
     const categoryObj = faker.helpers.arrayElement(categories)
     const category = categoryObj.name
     const subcategory = faker.helpers.arrayElement(categoryObj.subcategories)
 
-    // 名稱組合：形容詞 + 狗/貓 + 子分類
-    const name = `${faker.word.adjective()} ${petType === 'dog' ? '狗' : '貓'}${subcategory}`
+    // 主食、零食才指定狗或貓；其他類型設為 null
+    const petType = ['主食', '零食'].includes(category)
+      ? faker.helpers.arrayElement(petTypes)
+      : null
 
-    const price = faker.number.int({ min: 100, max: 1500 })
+    // 名稱組合：形容詞 + 狗/貓 + 子分類 （只有主食和零食會分貓狗）
+    const name = ['主食', '零食'].includes(category)
+      ? `${faker.word.adjective()} ${petType === 'dog' ? '狗' : '貓'}${subcategory}`
+      : `${faker.word.adjective()} ${subcategory}`
+
+    const price = faker.number.int({ min: 300, max: 1500 })
     const hasDiscount = faker.datatype.boolean()
     const discount = hasDiscount
       ? Math.floor(price * faker.number.float({ min: 0.5, max: 0.9, precision: 0.01 }))
       : null
 
     const description = generateProductFeature(name, category, subcategory)
-
     const imageKeyword = getImageKeywordByCategory(category)
 
     products.push({
@@ -93,7 +77,6 @@ async function seedProducts() {
   }
 
   const { error: insertError } = await supabase.from('products').upsert(products)
-
   if (insertError) {
     console.error('新增資料錯誤:', insertError)
   } else {

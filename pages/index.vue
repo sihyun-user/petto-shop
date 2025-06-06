@@ -20,7 +20,7 @@
           </div>
           <div class="grid-template-areas">
             <UiProductCard
-              v-for="item in filteredProducts"
+              v-for="item in categoryProducts"
               :key="item.id"
               :product="item"
               class="animate-fadeInUp"
@@ -37,7 +37,7 @@
         </div>
         <div class="grid-template-areas">
           <UiProductCard
-            v-for="item in filteredProducts.slice(0, 4)"
+            v-for="item in toyProducts"
             :key="item.id"
             :product="item"
             class="animate-fadeInUp"
@@ -77,16 +77,9 @@ useSeoMeta({
   title: '首頁'
 })
 
-const router = useRouter()
-const route = useRoute()
 const categories = ['所有商品', '主食', '零食', '生活用品']
 const activeCategory = ref('所有商品')
-const limit = ref(9)
-
-const filteredProducts = computed(() => {
-  if (activeCategory.value === '所有商品') return products.value
-  return products.value.filter((p) => p.category === activeCategory.value)
-})
+const toycategory = ref('玩具')
 
 const articles = ref([
   {
@@ -127,23 +120,21 @@ const articles = ref([
   }
 ])
 
-const { products, refresh } = useProducts({
-  limit: limit.value
+const categoryParam = computed(() => {
+  return activeCategory.value === '所有商品' ? undefined : activeCategory.value
+})
+
+const { products: categoryProducts } = useProducts({
+  limit: 8,
+  categoryParam
+})
+
+const { products: toyProducts } = useProducts({
+  limit: 4,
+  categoryParam: toycategory
 })
 
 const handleCategoryChange = (category: string) => {
   activeCategory.value = category
-
-  router.push({
-    query: { category: category === '所有商品' ? undefined : category }
-  })
 }
-
-watch(
-  [() => route.fullPath],
-  () => {
-    refresh()
-  },
-  { immediate: true }
-)
 </script>

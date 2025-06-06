@@ -7,13 +7,13 @@
       </div>
       <main class="w-full">
         <LayoutProductsFilterButton />
-        <div class="mb-5 flex items-center justify-between md:h-[36px]">
-          <span class="text-sm text-colorBlack"
-            >顯示 {{ (products && products.length) || 0 }} 項結果，共 {{ total || 0 }} 項</span
+        <div class="mb-5 flex items-center gap-4 md:h-[36px]">
+          <span v-if="!pending" class="text-sm text-colorBlack"
+            >顯示 {{ products?.length }} 項結果，共 {{ total }} 項</span
           >
           <USelect
             v-model="sortOrder"
-            class="ml-4 w-[150px] rounded-md border border-colorPrimary bg-white"
+            class="ml-auto w-[150px] justify-end rounded-md border border-colorPrimary bg-white"
             variant="none"
             size="md"
             placeholder="排序方式"
@@ -24,7 +24,7 @@
             ]"
           />
         </div>
-        <template v-if="products && products.length > 0">
+        <template v-if="products.length > 0">
           <div class="mb-10 grid gap-4 xs:grid-cols-2 lg:grid-cols-3">
             <UiProductCard
               v-for="item in products"
@@ -37,7 +37,12 @@
             <UiBasePagination :total="total" :limit="limit" />
           </div>
         </template>
-        <div v-else class="mb-10 text-colorBlack">無商品符合您的搜尋條件，請嘗試更改搜尋條件。</div>
+        <div v-if="pending" class="flex items-center justify-center">
+          <UiLoadingSpinner styles="w-10 h-10 bg-colorPrimary" />
+        </div>
+        <div v-if="!pending && products?.length == 0" class="mb-10 text-colorBlack">
+          無商品符合您的搜尋條件，請嘗試更改搜尋條件。
+        </div>
       </main>
     </section>
   </div>
@@ -74,16 +79,17 @@ const breadcrumbLinks = computed(() => {
   return links
 })
 
-const { products, total, refresh } = useProducts({
+const { pending, products, total } = useProducts({
   limit: limit.value
 })
 
 watch(
-  [() => route.fullPath],
+  () => route.fullPath,
   () => {
-    refresh()
+    window.scrollTo({ top: 0 })
+    sortOrder.value = (route.query.sort as string) || 'newest'
   },
-  { immediate: true }
+  { flush: 'post' }
 )
 
 watch(
@@ -95,7 +101,6 @@ watch(
         sort: newSort
       }
     })
-  },
-  { immediate: true }
+  }
 )
 </script>

@@ -7,7 +7,7 @@
       props.isLoading ? 'pointer-events-none cursor-not-allowed opacity-50' : ''
     ]"
   >
-    <UIcon v-if="isLoading" name="i-svg-spinners:180-ring-with-bg" class="mr-1 h-5 w-5"></UIcon>
+    <UiLoadingSpinner v-if="isLoading" styles="mr-1 h-5 w-5" />
     {{ props.text }}
   </UButton>
 </template>
