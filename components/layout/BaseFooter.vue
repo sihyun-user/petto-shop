@@ -9,11 +9,11 @@
           <p class="my-3 text-2xl font-semibold">為毛孩選對每一天</p>
           <div class="flex items-center space-x-2">
             <UIcon name="fa6-solid:location-dot" class="h-3 w-3" />
-            <p class="text-sm">台北市松山區毛孩路125號1樓</p>
+            <p class="text-sm">台北市信義區毛孩街 88 號</p>
           </div>
           <a href="callto:1234567890123" class="my-2 flex items-center space-x-2">
             <UIcon name="i-heroicons:phone" class="h-3 w-3" />
-            <p class="text-sm">0912345678</p>
+            <p class="text-sm">02-1234-5678</p>
           </a>
           <a href="mailto:petto@gmail.com" class="flex items-center space-x-2">
             <UIcon name="i-fa6-solid:envelope" class="h-3 w-3" />

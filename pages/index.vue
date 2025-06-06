@@ -30,7 +30,7 @@
       </div>
     </section>
     <section>
-      <div class="container py-[60px]">
+      <div class="container py-[40px] md:py-[60px]">
         <div class="mb-7 space-y-1 text-center">
           <h4 class="text-colorPrimaryDark">專為毛孩設計的玩具</h4>
           <h2 class="text-colorBlack">專為毛孩打造，咬咬最對味</h2>
@@ -46,7 +46,7 @@
       </div>
     </section>
     <section class="bg-colorPrimaryLight">
-      <div class="container py-[60px]">
+      <div class="container py-[40px] md:py-[60px]">
         <div class="mb-7 space-y-1 text-center">
           <h4 class="text-colorPrimaryDark">開箱測評</h4>
           <h2 class="text-colorBlack">寵物達人實測，選出最愛好物</h2>
@@ -55,7 +55,7 @@
       </div>
     </section>
     <section>
-      <div class="container py-[60px]">
+      <div class="container py-[40px] md:py-[60px]">
         <div class="mb-7 space-y-1 text-center">
           <h4 class="text-colorPrimaryDark">毛孩專欄</h4>
           <h2 class="text-colorBlack">成為最懂毛孩的好主人</h2>

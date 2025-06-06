@@ -1,7 +1,7 @@
 <template>
   <div>
-    <LayoutBannerBreadcrumb title="聯絡我們" :links="[{ label: '聯絡我們' }]" />
-    <section class="container flex flex-col-reverse gap-4 py-[60px] md:flex-row md:gap-6">
+    <LayoutBannerBreadcrumb title="關於我們" :links="[{ label: '關於我們' }]" />
+    <section class="container flex flex-col-reverse gap-4 py-[40px] md:flex-row md:gap-6">
       <div>
         <h4 class="text-colorPrimaryDark">關於 Petto Shop</h4>
         <h2 class="text-colorBlack">用心守護毛孩健康的每一天</h2>
@@ -23,7 +23,7 @@
       />
     </section>
     <section class="bg-colorPrimaryLight">
-      <div class="container py-[60px]">
+      <div class="container py-[40px]">
         <div class="mb-7 space-y-1 text-center">
           <h4 class="text-colorPrimaryDark">為什麼選擇我們</h4>
           <h2 class="text-colorBlack">專業挑選、品質保證，給毛孩最安心的照護</h2>
@@ -52,8 +52,21 @@
         </div>
       </div>
     </section>
-    <section>
-      <UiBaseButton text="播放影片" @click="isOpen = true"></UiBaseButton>
+    <section class="container py-[40px]">
+      <div class="relative flex w-full justify-center overflow-hidden rounded-lg md:h-[240px]">
+        <div class="center-absolute z-10 flex w-full flex-col items-center">
+          <h2 class="text-start text-white">關於寵物商城 Petto Shop</h2>
+          <div class="mt-5">
+            <UiBaseButton text="播放影片" @click="isOpen = true"></UiBaseButton>
+          </div>
+        </div>
+
+        <div
+          class="absolute inset-0 bg-cover bg-center"
+          style="background-image: url('/images/products/pet.jpg')"
+        ></div>
+        <div class="absolute inset-0 bg-black/60"></div>
+      </div>
 
       <UModal v-model="isOpen" size="lg">
         <div class="relative h-0 pb-[56%]">
@@ -68,8 +81,22 @@
         </div>
       </UModal>
     </section>
+    <section class="container">
+      <div class="mb-7 space-y-1 text-center">
+        <h4 class="text-colorPrimaryDark">營業資訊</h4>
+        <h4 class="text-colorBlack">
+          週一至週日 10:00 - 20:00｜全年無休<br />
+          地點：台北市信義區毛孩街 88 號<br />
+          電話：02-1234-5678
+        </h4>
+      </div>
+    </section>
   </div>
 </template>
 <script setup lang="ts">
+usePageSeo({
+  title: '關於我們'
+})
+
 const isOpen = ref(false)
 </script>
