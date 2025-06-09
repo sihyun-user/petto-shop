@@ -1,0 +1,155 @@
+<template>
+  <section class="container py-[40px]">
+    <div class="mb-[60px] flex flex-col gap-5 md:flex-row md:gap-12">
+      <div class="flex flex-shrink-0 flex-col">
+        <ZoomImg
+          :src="imageZoom"
+          trigger="hover"
+          zoom-type="drag"
+          :zoom-scale="3"
+          class="object-cover xs:h-[400px] xs:w-[400px] lg:h-[500px] lg:w-[500px]"
+          alt="商品圖片"
+        />
+        <div class="mt-2 flex gap-1">
+          <template v-for="(image, index) in images" :key="index">
+            <div
+              class="cursor-pointer border border-colorGray bg-white p-1"
+              @click="imageZoom = image"
+            >
+              <NuxtImg
+                :src="image"
+                width="66"
+                height="66"
+                class="h-[66px] w-[66px] object-cover"
+                alt="商品圖片縮圖"
+              />
+            </div>
+          </template>
+        </div>
+      </div>
+      <div v-if="!pending && product">
+        <div class="space-y-2">
+          <h2 class="text-colorBlack">{{ product.name }}</h2>
+          <p class="text-colorGrayDark">
+            分類：{{ product.category }}{{ product.subcategory ? `/${product.subcategory}` : '' }}
+          </p>
+          <div
+            v-if="product.discount"
+            class="flex items-center gap-2 text-2xl font-bold text-colorBlack"
+          >
+            <span class="text-colorRed">${{ product.discount }}</span>
+            <span class="text-base text-colorGrayDark line-through">${{ product.price }}</span>
+          </div>
+          <div v-else class="flex items-center gap-2 text-2xl font-bold text-colorBlack">
+            ${{ product.price }}
+          </div>
+        </div>
+        <p class="mt-4 min-h-[150px] border-y border-colorGray py-2">
+          {{ product.description || '這個產品沒有描述。' }}
+        </p>
+        <div class="mt-8 flex flex-wrap justify-between gap-8">
+          <div class="flex items-center gap-4">
+            <p class="text-colorBlack">購買數量</p>
+            <div class="flex items-center">
+              <UButton
+                variant="ghost"
+                class="h-[40px] w-[40px] rounded-none bg-colorSecondary hover:bg-colorPrimary"
+                @click="changeQuantity('subtract')"
+              >
+                <UIcon name="i-heroicons:minus-16-solid" class="text-white" />
+              </UButton>
+              <UInput
+                v-model="quantity"
+                variant="none"
+                class="h-[40px] w-[65px] border-y border-colorPrimary bg-white text-colorBlack"
+                size="lg"
+                type="number"
+              />
+              <UButton
+                variant="ghost"
+                class="h-[40px] w-[40px] rounded-none bg-colorPrimary hover:bg-colorPrimaryDark"
+                @click="changeQuantity('add')"
+              >
+                <UIcon name="i-heroicons:plus-16-solid" class="text-white" />
+              </UButton>
+            </div>
+          </div>
+          <div>
+            <UiBaseButton text="加入購物車" />
+          </div>
+        </div>
+      </div>
+      <div v-else></div>
+    </div>
+    <div>
+      <ul class="flex">
+        <li
+          v-for="tab in ['introduction', 'specification']"
+          :key="tab"
+          :class="[
+            'cursor-pointer px-6 py-4',
+            activeTab === tab
+              ? 'border-x border-t-[4px] border-x-colorGray border-t-colorPrimary bg-colorGrayLight'
+              : 'border-b border-colorGray bg-white'
+          ]"
+          @click="activeTab = tab"
+        >
+          {{ tab === 'introduction' ? '產品介紹' : '商品規格' }}
+        </li>
+      </ul>
+      <div
+        class="-mt-[1px] min-h-[150px] border border-colorGray bg-colorGrayLight p-4 text-colorBlack"
+      >
+        <div v-if="activeTab === 'introduction'">
+          {{ product.description || '這個產品沒有介紹。' }}
+        </div>
+        <div v-else class="flex flex-col gap-2">
+          <p>產品品牌: {{ specification?.brand }}</p>
+          <p>產品型號: {{ specification?.model }}</p>
+          <p>產品尺寸: {{ specification?.size }}</p>
+          <p>產品產地: {{ specification?.origin }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+<script setup lang="ts">
+import { ZoomImg } from 'vue3-zoomer'
+import { Product } from '@/types'
+
+const images = ['/images/products/pet.jpg', '/images/products/food.jpg']
+
+const supabase = useSupabaseClient()
+const route = useRoute()
+const productId = route.params.id as string | undefined
+
+const quantity = ref(0)
+const imageZoom = ref(images[0])
+const activeTab = ref<'introduction' | 'specification'>('introduction')
+
+const changeQuantity = (type: 'add' | 'subtract' = 'add') => {
+  if (type === 'add') {
+    quantity.value += 1
+  } else if (type === 'subtract' && quantity.value > 0) {
+    quantity.value -= 1
+  }
+}
+
+const { data: product, pending } = await useAsyncData<Product | null>(
+  `product-${productId}`,
+  async () => {
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .eq('id', productId as string)
+      .maybeSingle()
+
+    if (error) {
+      return null
+    }
+    return data
+  }
+)
+
+const specification = computed(() => JSON.parse((product.value?.specification as string) ?? '{}'))
+</script>

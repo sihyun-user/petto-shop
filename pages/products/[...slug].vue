@@ -96,7 +96,8 @@ const breadcrumbLinks = computed(() => {
 })
 
 const { pending, products, total } = useProducts({
-  limit: limit.value
+  limit: limit.value,
+  route
 })
 
 watch(

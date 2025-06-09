@@ -25,6 +25,7 @@
     "swiper": "^11.2.7",
     "vue": "^3.5.13",
     "vue-router": "^4.5.1",
+    "vue3-zoomer": "^1.0.8",
     "zod": "^3.25.30"
   },
   "devDependencies": {

@@ -17,7 +17,7 @@
         </p>
       </div>
       <NuxtImg
-        src="images/banner_bg_2.jpg"
+        src="/images/banner_bg_2.jpg"
         height="450"
         class="h-[200px] w-full rounded-lg object-cover md:h-[300px]"
       />

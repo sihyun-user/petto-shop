@@ -44,7 +44,7 @@ const page = ref(Number(route.query.page) || 1)
 
 const getPageLink = (page: number) => {
   return {
-    path: route.path,
+    path: route?.path ?? '/',
     query: {
       ...route.query,
       page

@@ -2,22 +2,24 @@ import type { Product } from '@/types'
 
 export const useProducts = ({
   limit = 10,
-  categoryParam = undefined
+  categoryParam = undefined,
+  route
 }: {
   limit?: number
   categoryParam?: Ref<string | undefined>
+  route?: ReturnType<typeof useRoute>
 }) => {
   const supabase = useSupabaseClient()
-  const route = useRoute()
 
-  const page = computed(() => Number(route.query.page) || 1)
+  const page = computed(() => Number(route?.query.page) || 1)
   const from = computed(() => (page.value - 1) * limit)
   const to = computed(() => from.value + limit - 1)
 
   const queryKey = computed(() => {
-    const slug = route.params.slug as string[] | undefined
+    const slug = route?.params.slug as string[] | undefined
     const { pet_type, category, subcategory } = useParsedParams(slug ?? [])
-    const { sort, page } = route.query
+    const sort = route?.query?.sort
+    const page = route?.query?.page
 
     return [
       'products',
@@ -34,9 +36,9 @@ export const useProducts = ({
   const { data, pending, refresh } = useAsyncData(
     queryKey,
     async () => {
-      const slug = route.params.slug as string[] | undefined
+      const slug = route?.params.slug as string[] | undefined
       const { pet_type, category, subcategory } = useParsedParams(slug ?? [])
-      const { sort } = route.query
+      const sort = route?.query?.sort
 
       let query = supabase
         .from('products')
