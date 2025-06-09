@@ -3,10 +3,11 @@
     <div class="container flex flex-wrap justify-between space-y-12 py-12">
       <div class="flex w-full justify-center md:w-3/12">
         <div>
-          <NuxtLink to="/">
-            <NuxtImg src="/images/logo.png" alt="Logo Image" sizes="120px lg:150px" />
+          <NuxtLink to="/" title="logo" class="flex items-center gap-3 text-white">
+            <SvgMainLogo class="h-10 w-auto" />
+            <span class="text-[26px] font-bold">Peto Shop</span>
           </NuxtLink>
-          <p class="my-3 text-2xl font-semibold">為毛孩選對每一天</p>
+          <p class="mb-3 text-2xl font-semibold">為毛孩選對每一天</p>
           <div class="flex items-center space-x-2">
             <UIcon name="fa6-solid:location-dot" class="h-3 w-3" />
             <p class="text-sm">台北市信義區毛孩街 88 號</p>

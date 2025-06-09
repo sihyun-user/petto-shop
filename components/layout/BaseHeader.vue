@@ -2,8 +2,9 @@
   <header class="sticky top-0 z-50 w-full border-b bg-white">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
-        <NuxtLink to="/">
-          <NuxtImg src="/images/logo.png" alt="Logo Image" sizes="120px lg:180px" />
+        <NuxtLink to="/" title="logo" class="flex items-center gap-3 text-colorBlack">
+          <SvgMainLogo class="h-8 w-auto md:h-10" />
+          <span class="text-[20px] font-bold md:text-[26px]">Peto Shop</span>
         </NuxtLink>
 
         <nav class="hidden h-full items-center gap-6 md:flex">
