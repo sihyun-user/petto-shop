@@ -75,10 +75,19 @@ function generateSpecs() {
 }
 
 function getImageKeywordByCategory(categoryName) {
-  if (['主食', '零食'].includes(categoryName)) return 'food'
-  if (categoryName === '玩具') return 'toy'
-  if (categoryName === '清潔洗護') return 'wash'
-  return 'pet'
+  if (['主食', '零食'].includes(categoryName))
+    return [
+      'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//food_1.jpg',
+      'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//food_2.jpg'
+    ]
+  if (categoryName === '玩具')
+    return ['https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//toy.jpg']
+  if (categoryName === '清潔洗護')
+    return [
+      'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//wash_1.jpg',
+      'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//wash_2.jpg'
+    ]
+  return ['https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//other.jpg']
 }
 
 async function seedProducts() {
@@ -115,13 +124,14 @@ async function seedProducts() {
 
     products.push({
       name,
+      slug: name.replace(/\s+/g, '-'),
       category,
       subcategory,
       price,
       discount,
       description,
       specification: specs,
-      image: imageKeyword,
+      images: imageKeyword,
       pet_type: petType,
       stock: faker.number.int({ min: 0, max: 100 }),
       created_at: faker.date.recent({ days: 90 }).toISOString()

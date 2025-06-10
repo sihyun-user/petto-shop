@@ -95,5 +95,4 @@
 const navLinks = useNavLinks()
 
 const route = useRoute()
-console.log('Current route:', route.path)
 </script>

@@ -1,8 +1,8 @@
 <template>
   <div class="flex h-auto w-full flex-col overflow-hidden rounded-lg bg-white shadow">
-    <NuxtLink :to="`/product/${props.product.id}`">
+    <NuxtLink :to="`/product/${props.product.slug}`">
       <NuxtImg
-        :src="`/images/products/${props.product.image}.jpg`"
+        :src="props.product.images[0]"
         height="200"
         class="h-[200px] w-full object-cover"
         alt="商品圖片"
@@ -10,7 +10,7 @@
     </NuxtLink>
 
     <div class="flex flex-1 flex-col justify-between p-3 md:p-4">
-      <NuxtLink :to="`/product/${props.product.id}`" class="mb-2 inline-block">
+      <NuxtLink :to="`/product/${props.product.slug}`" class="mb-2 inline-block">
         <h3 class="line-clamp-2 text-colorBlack hover:text-colorBlackDark">
           {{ props.product.name }}
         </h3>

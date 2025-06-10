@@ -1,17 +1,18 @@
 <template>
-  <section class="container py-[40px]">
+  <section v-if="product" class="container py-[40px]">
     <div class="mb-[60px] flex flex-col gap-5 md:flex-row md:gap-12">
       <div class="flex flex-shrink-0 flex-col">
-        <ZoomImg
-          :src="imageZoom"
-          trigger="hover"
-          zoom-type="drag"
-          :zoom-scale="3"
-          class="object-cover xs:h-[400px] xs:w-[400px] lg:h-[500px] lg:w-[500px]"
-          alt="商品圖片"
-        />
+        <div class="overflow-hidden xs:h-[400px] xs:w-[400px] lg:h-[500px] lg:w-[500px]">
+          <ZoomImg
+            :src="imageZoom"
+            trigger="hover"
+            zoom-type="drag"
+            :zoom-scale="3"
+            class="absolute h-full w-full object-cover"
+          />
+        </div>
         <div class="mt-2 flex gap-1">
-          <template v-for="(image, index) in images" :key="index">
+          <template v-for="(image, index) in product.images" :key="index">
             <div
               class="cursor-pointer border border-colorGray bg-white p-1"
               @click="imageZoom = image"
@@ -27,7 +28,7 @@
           </template>
         </div>
       </div>
-      <div v-if="!pending && product">
+      <div>
         <div class="space-y-2">
           <h2 class="text-colorBlack">{{ product.name }}</h2>
           <p class="text-colorGrayDark">
@@ -79,7 +80,6 @@
           </div>
         </div>
       </div>
-      <div v-else></div>
     </div>
     <div>
       <ul class="flex">
@@ -101,7 +101,7 @@
         class="-mt-[1px] min-h-[150px] border border-colorGray bg-colorGrayLight p-4 text-colorBlack"
       >
         <div v-if="activeTab === 'introduction'">
-          {{ product.description || '這個產品沒有介紹。' }}
+          {{ product?.description || '這個產品沒有介紹。' }}
         </div>
         <div v-else class="flex flex-col gap-2">
           <p>產品品牌: {{ specification?.brand }}</p>
@@ -115,16 +115,14 @@
 </template>
 <script setup lang="ts">
 import { ZoomImg } from 'vue3-zoomer'
-import { Product } from '@/types'
-
-const images = ['/images/products/pet.jpg', '/images/products/food.jpg']
+import type { Product } from '@/types'
 
 const supabase = useSupabaseClient()
 const route = useRoute()
-const productId = route.params.id as string | undefined
+const productSlug = route.params.slug as string | undefined
 
 const quantity = ref(0)
-const imageZoom = ref(images[0])
+const imageZoom = ref<string | undefined>(undefined)
 const activeTab = ref<'introduction' | 'specification'>('introduction')
 
 const changeQuantity = (type: 'add' | 'subtract' = 'add') => {
@@ -135,21 +133,46 @@ const changeQuantity = (type: 'add' | 'subtract' = 'add') => {
   }
 }
 
-const { data: product, pending } = await useAsyncData<Product | null>(
-  `product-${productId}`,
-  async () => {
-    const { data, error } = await supabase
-      .from('products')
-      .select('*')
-      .eq('id', productId as string)
-      .maybeSingle()
+const { data: product } = await useAsyncData<Product | null>(`product-${productSlug}`, async () => {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('slug', productSlug as string)
+    .maybeSingle()
 
-    if (error) {
-      return null
-    }
-    return data
+  if (error || !data) {
+    return null
   }
-)
 
-const specification = computed(() => JSON.parse((product.value?.specification as string) ?? '{}'))
+  return data
+})
+
+const specification = computed(() => {
+  if (!product.value || typeof product.value.specification !== 'string') {
+    return {}
+  }
+
+  try {
+    return JSON.parse(product.value.specification)
+  } catch (e) {
+    return {}
+  }
+})
+
+watch(
+  product,
+  (newProduct) => {
+    if (newProduct) {
+      usePageSeo({
+        title: product.value?.name,
+        description: product.value?.description
+      })
+
+      if (newProduct.images) {
+        imageZoom.value = newProduct.images[0]
+      }
+    }
+  },
+  { immediate: true }
+)
 </script>
