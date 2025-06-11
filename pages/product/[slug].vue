@@ -2,14 +2,8 @@
   <section v-if="product" class="container py-[40px]">
     <div class="mb-[60px] flex flex-col gap-5 md:flex-row md:gap-12">
       <div class="flex flex-shrink-0 flex-col">
-        <div class="overflow-hidden xs:h-[400px] xs:w-[400px] lg:h-[500px] lg:w-[500px]">
-          <ZoomImg
-            :src="imageZoom"
-            trigger="hover"
-            zoom-type="drag"
-            :zoom-scale="3"
-            class="absolute h-full w-full object-cover"
-          />
+        <div class="h-[400px] w-[400px] overflow-hidden lg:h-[500px] lg:w-[500px]">
+          <ZoomImg :src="imageZoom" trigger="hover" zoom-type="drag" :zoom-scale="3" />
         </div>
         <div class="mt-2 flex gap-1">
           <template v-for="(image, index) in product.images" :key="index">
@@ -124,6 +118,7 @@ const productSlug = route.params.slug as string | undefined
 const quantity = ref(0)
 const imageZoom = ref<string | undefined>(undefined)
 const activeTab = ref<'introduction' | 'specification'>('introduction')
+const specification = ref<Record<string, any>>({})
 
 const changeQuantity = (type: 'add' | 'subtract' = 'add') => {
   if (type === 'add') {
@@ -133,31 +128,23 @@ const changeQuantity = (type: 'add' | 'subtract' = 'add') => {
   }
 }
 
-const { data: product } = await useAsyncData<Product | null>(`product-${productSlug}`, async () => {
-  const { data, error } = await supabase
-    .from('products')
-    .select('*')
-    .eq('slug', productSlug as string)
-    .maybeSingle()
+const { data: product } = await useAsyncData<Product | null>(
+  'product',
+  async () => {
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .eq('slug', productSlug as string)
+      .maybeSingle()
 
-  if (error || !data) {
-    return null
+    if (error || !data) return null
+
+    return data
+  },
+  {
+    watch: [() => productSlug]
   }
-
-  return data
-})
-
-const specification = computed(() => {
-  if (!product.value || typeof product.value.specification !== 'string') {
-    return {}
-  }
-
-  try {
-    return JSON.parse(product.value.specification)
-  } catch (e) {
-    return {}
-  }
-})
+)
 
 watch(
   product,
@@ -170,6 +157,14 @@ watch(
 
       if (newProduct.images) {
         imageZoom.value = newProduct.images[0]
+      }
+
+      if (newProduct.category) {
+        try {
+          specification.value = JSON.parse(newProduct.specification)
+        } catch (e) {
+          specification.value = {}
+        }
       }
     }
   },
