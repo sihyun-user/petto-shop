@@ -1,10 +1,18 @@
 <template>
-  <section v-if="product" class="container py-[40px]">
+  <section v-if="product" class="container min-h-screen py-[40px]">
     <div class="mb-[60px] flex flex-col gap-5 md:flex-row md:gap-12">
       <div class="flex flex-shrink-0 flex-col">
-        <div class="h-[400px] w-[400px] overflow-hidden lg:h-[500px] lg:w-[500px]">
-          <ZoomImg :src="imageZoom" trigger="hover" zoom-type="drag" :zoom-scale="3" />
+        <div class="h-[400px] w-[400px] overflow-hidden">
+          <ZoomImg
+            :src="imageZoom"
+            zoom-type="drag"
+            :zoom-scale="3"
+            :step="1"
+            trigger="hover"
+            class="h-full w-[500px] object-cover"
+          />
         </div>
+
         <div class="mt-2 flex gap-1">
           <template v-for="(image, index) in product.images" :key="index">
             <div
@@ -128,33 +136,28 @@ const changeQuantity = (type: 'add' | 'subtract' = 'add') => {
   }
 }
 
-const { data: product } = await useAsyncData<Product | null>(
-  'product',
-  async () => {
-    const { data, error } = await supabase
-      .from('products')
-      .select('*')
-      .eq('slug', productSlug as string)
-      .maybeSingle()
+const { data: product } = await useAsyncData<Product | null>('product', async () => {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('slug', productSlug as string)
+    .maybeSingle()
 
-    if (error || !data) return null
+  if (error || !data) return null
 
-    return data
-  },
-  {
-    watch: [() => productSlug]
-  }
-)
+  usePageSeo({
+    title: (data as Product).name,
+    description: (data as Product).description,
+    image: (data as Product).images?.[0]
+  })
+
+  return data
+})
 
 watch(
   product,
   (newProduct) => {
     if (newProduct) {
-      usePageSeo({
-        title: product.value?.name,
-        description: product.value?.description
-      })
-
       if (newProduct.images) {
         imageZoom.value = newProduct.images[0]
       }

@@ -78,7 +78,7 @@ function getImageKeywordByCategory(categoryName) {
   if (['主食', '零食'].includes(categoryName))
     return [
       'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//food_1.jpg',
-      'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//food_2.jpg'
+      'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//food_3.jpg'
     ]
   if (categoryName === '玩具')
     return ['https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//toy.jpg']

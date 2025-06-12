@@ -34,7 +34,7 @@
                       :to="child.to"
                       :class="[
                         'block rounded px-4 py-2 text-sm font-medium text-colorGrayDark hover:bg-colorGrayLight hover:text-colorPrimary',
-                        route.path === child.to ? 'bg-colorGrayLight text-colorPrimary' : ''
+                        route?.path === child.to ? 'bg-colorGrayLight text-colorPrimary' : ''
                       ]"
                     >
                       {{ child.label }}
@@ -51,7 +51,7 @@
                 'relative flex h-full items-center font-medium text-colorGrayDark hover:text-colorPrimary',
                 'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-colorPrimary',
                 'after:opacity-0 after:transition-all after:duration-500 after:ease-in-out hover:after:opacity-100',
-                route.path === link.to ? 'text-colorPrimary after:opacity-100' : ''
+                route?.path === link.to ? 'text-colorPrimary after:opacity-100' : ''
               ]"
             >
               {{ link.label }}
@@ -65,17 +65,19 @@
             variant="ghost"
             class="text-colorBlack hover:bg-transparent hover:text-colorPrimaryDark"
           />
-          <UButton
-            icon="i-heroicons:shopping-cart-solid"
-            variant="ghost"
-            class="relative text-colorBlack hover:bg-transparent hover:text-colorPrimaryDark"
-          >
-            <span
-              class="absolute -right-1 -top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimary text-xs text-white shadow"
+          <NuxtLink to="/cart">
+            <UButton
+              icon="i-heroicons:shopping-cart-solid"
+              variant="ghost"
+              class="relative text-colorBlack hover:bg-transparent hover:text-colorPrimaryDark"
             >
-              5
-            </span>
-          </UButton>
+              <span
+                class="absolute -right-1 -top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimary text-xs text-white shadow"
+              >
+                5
+              </span>
+            </UButton>
+          </NuxtLink>
           <NuxtLink to="/">
             <UButton
               icon="i-heroicons:user-20-solid"

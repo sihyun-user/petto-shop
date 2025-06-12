@@ -86,17 +86,19 @@
             variant="ghost"
             class="text-colorBlack hover:bg-transparent hover:text-colorPrimaryDark"
           />
-          <UButton
-            icon="i-heroicons:shopping-cart-solid"
-            variant="ghost"
-            class="relative text-colorBlack hover:bg-transparent hover:text-colorPrimaryDark"
-          >
-            <span
-              class="absolute -right-1 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimaryDark text-xs text-white shadow"
+          <NuxtLink to="/cart">
+            <UButton
+              icon="i-heroicons:shopping-cart-solid"
+              variant="ghost"
+              class="relative text-colorBlack hover:bg-transparent hover:text-colorPrimaryDark"
             >
-              5
-            </span>
-          </UButton>
+              <span
+                class="absolute -right-1 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimaryDark text-xs text-white shadow"
+              >
+                5
+              </span>
+            </UButton>
+          </NuxtLink>
           <NuxtLink to="/profile">
             <UButton
               icon="i-heroicons:user-20-solid"

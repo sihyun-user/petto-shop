@@ -2,12 +2,12 @@ export const usePageSeo = (
   seo: {
     title?: string
     description?: string
-    ogImage?: string
+    image?: string
     ogUrl?: string
   } = {}
 ) => {
   const siteName = '寵物商城 Petto Shop | 精選狗狗保健食品、生食與日常用品，陪伴毛孩健康快樂每一天'
-  const defaultImage = 'https://fakeimg.pl/250x100/'
+  const defaultImage = 'https://picsum.photos/250/100'
 
   const fullTitle = seo.title ? `${seo.title} | ${siteName}` : siteName
   const fullDescription =
@@ -19,15 +19,16 @@ export const usePageSeo = (
     description: fullDescription,
     ogTitle: fullTitle,
     ogDescription: fullDescription,
-    ogImage: seo.ogImage ?? defaultImage,
+    ogImage: seo.image ?? defaultImage,
     ogUrl: seo.ogUrl ?? 'https://Petto-Shop.com',
     twitterCard: 'summary_large_image',
     twitterTitle: fullTitle,
     twitterDescription: fullDescription,
-    twitterImage: seo.ogImage ?? defaultImage
+    twitterImage: seo.image ?? defaultImage
   })
 
   useHead({
+    link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
     title: fullTitle
   })
 }
