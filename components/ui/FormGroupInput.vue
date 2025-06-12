@@ -6,7 +6,7 @@
       class="rounded-md border border-colorGray bg-white text-colorBlack"
       variant="none"
       size="lg"
-      @update:model-value="emit('update:modelValue', $event)"
+      @update="onChangeInput"
     />
   </UFormGroup>
 </template>
@@ -34,4 +34,8 @@ const props = defineProps({
     default: false
   }
 })
+
+const onChangeInput = (value: string) => {
+  emit('update:modelValue', value)
+}
 </script>

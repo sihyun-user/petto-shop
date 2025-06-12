@@ -26,7 +26,7 @@
           padded
           @click="isOpen = false"
         >
-          <UIcon class="h-8 w-8 text-colorPrimary" name="i-heroicons:x-mark" />
+          <UIcon class="h-8 w-8 text-colorPrimary" name="heroicons:x-mark-16-solid" />
         </UButton>
       </div>
       <div class="flex h-full flex-col justify-between overflow-y-auto bg-white px-6 pb-8">

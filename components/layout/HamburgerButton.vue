@@ -3,7 +3,7 @@
     <UButton color="white" variant="ghost" class="md:hidden">
       <UIcon
         class="hover:text-colorParimaryDark h-7 w-7 text-colorPrimary"
-        :name="isOpen ? 'i-heroicons:x-mark' : 'i-heroicons:bars-3'"
+        :name="isOpen ? 'heroicons:x-mark-16-solid' : 'i-heroicons:bars-3'"
         @click="isOpen = !isOpen"
       />
     </UButton>
@@ -24,7 +24,7 @@
           padded
           @click="isOpen = false"
         >
-          <UIcon class="h-8 w-8 text-colorPrimary" name="i-heroicons:x-mark" />
+          <UIcon class="h-8 w-8 text-colorPrimary" name="heroicons:x-mark-16-solid" />
         </UButton>
       </div>
       <div class="flex h-full flex-col justify-center overflow-y-auto bg-white">

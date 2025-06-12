@@ -24,7 +24,7 @@
                 width="66"
                 height="66"
                 class="h-[66px] w-[66px] object-cover"
-                alt="商品圖片縮圖"
+                alt="product image"
               />
             </div>
           </template>
@@ -53,29 +53,7 @@
         <div class="mt-8 flex flex-wrap justify-between gap-8">
           <div class="flex items-center gap-4">
             <p class="text-colorBlack">購買數量</p>
-            <div class="flex items-center">
-              <UButton
-                variant="ghost"
-                class="h-[40px] w-[40px] rounded-none bg-colorSecondary hover:bg-colorPrimary"
-                @click="changeQuantity('subtract')"
-              >
-                <UIcon name="i-heroicons:minus-16-solid" class="text-white" />
-              </UButton>
-              <UInput
-                v-model="quantity"
-                variant="none"
-                class="h-[40px] w-[65px] border-y border-colorPrimary bg-white text-colorBlack"
-                size="lg"
-                type="number"
-              />
-              <UButton
-                variant="ghost"
-                class="h-[40px] w-[40px] rounded-none bg-colorPrimary hover:bg-colorPrimaryDark"
-                @click="changeQuantity('add')"
-              >
-                <UIcon name="i-heroicons:plus-16-solid" class="text-white" />
-              </UButton>
-            </div>
+            <UiSelectNumbers v-model="quantity" />
           </div>
           <div>
             <UiBaseButton text="加入購物車" />
@@ -127,14 +105,6 @@ const quantity = ref(0)
 const imageZoom = ref<string | undefined>(undefined)
 const activeTab = ref<'introduction' | 'specification'>('introduction')
 const specification = ref<Record<string, any>>({})
-
-const changeQuantity = (type: 'add' | 'subtract' = 'add') => {
-  if (type === 'add') {
-    quantity.value += 1
-  } else if (type === 'subtract' && quantity.value > 0) {
-    quantity.value -= 1
-  }
-}
 
 const { data: product } = await useAsyncData<Product | null>('product', async () => {
   const { data, error } = await supabase
