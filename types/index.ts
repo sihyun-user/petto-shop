@@ -22,3 +22,8 @@ export interface Atricle {
   date: string
   author: string
 }
+
+export interface CartItem {
+  id: string
+  quantity: number
+}

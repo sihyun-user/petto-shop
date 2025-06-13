@@ -38,6 +38,8 @@ const changeQuantity = (type: 'add' | 'subtract' = 'add') => {
   } else if (type === 'subtract' && quantity.value > 0) {
     quantity.value -= 1
   }
+
+  emit('update:modelValue', quantity.value)
 }
 
 const onChangeInput = () => {

@@ -4,5 +4,11 @@
   </div>
 </template>
 <script setup>
-document.body.style.overflow = 'hidden'
+onMounted(() => {
+  document.body.style.overflow = 'hidden'
+})
+
+onUnmounted(() => {
+  document.body.style.overflow = ''
+})
 </script>

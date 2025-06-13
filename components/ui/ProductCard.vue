@@ -23,15 +23,26 @@
           </div>
           <div v-else class="text-xl font-bold text-colorBlack">${{ props.product.price }}</div>
         </div>
-        <UiBaseButton text="加入購物車" />
+        <UiBaseButton text="加入購物車" @click="addToCart" />
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import type { Product } from '~/types'
-
+import { useCartStore } from '@/store/cart'
+import type { Product } from '@/types'
 const props = defineProps<{
   product: Product
 }>()
+
+const cartStore = useCartStore()
+const { addProductSuccess } = useAppToast()
+
+const addToCart = () => {
+  cartStore.addItem({
+    id: props.product.id,
+    quantity: 1
+  })
+  addProductSuccess(props.product.name)
+}
 </script>

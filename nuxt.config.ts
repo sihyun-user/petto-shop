@@ -6,7 +6,13 @@ export default defineNuxtConfig({
   devServer: {
     port: 8080
   },
-  modules: ['@nuxt/ui', '@nuxtjs/supabase', '@nuxt/image'],
+  modules: [
+    '@nuxt/ui',
+    '@nuxtjs/supabase',
+    '@nuxt/image',
+    '@pinia/nuxt',
+    'pinia-plugin-persistedstate/nuxt'
+  ],
   supabase: {
     redirect: false
   },

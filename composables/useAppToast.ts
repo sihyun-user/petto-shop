@@ -19,8 +19,18 @@ export const useAppToast = () => {
     })
   }
 
+  const addProductSuccess = (name: string) => {
+    toast.add({
+      title: '已加入購物車',
+      description: `商品 ${name} 已成功加入購物車！`,
+      color: 'green',
+      icon: 'heroicons:check-circle-20-solid'
+    })
+  }
+
   return {
     showSuccess,
-    showError
+    showError,
+    addProductSuccess
   }
 }
