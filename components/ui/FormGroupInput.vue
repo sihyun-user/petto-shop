@@ -6,7 +6,7 @@
       class="rounded-md border border-colorGray bg-white text-colorBlack"
       variant="none"
       size="lg"
-      @update="onChangeInput"
+      @update:model-value="onChangeInput"
     />
   </UFormGroup>
 </template>

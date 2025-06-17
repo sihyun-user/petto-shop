@@ -28,9 +28,19 @@ export const useAppToast = () => {
     })
   }
 
+  const removeProductSuccess = (name: string) => {
+    toast.add({
+      title: '已移除商品',
+      description: `商品 ${name} 已成功從購物車中移除！`,
+      color: 'yellow',
+      icon: 'heroicons:trash-20-solid'
+    })
+  }
+
   return {
     showSuccess,
     showError,
-    addProductSuccess
+    addProductSuccess,
+    removeProductSuccess
   }
 }

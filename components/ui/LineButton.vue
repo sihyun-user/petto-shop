@@ -3,7 +3,10 @@
     :type="props.type"
     :icon="props.icon"
     variant="ghost"
-    class="flex items-center justify-center rounded-full border border-colorPrimary bg-white text-colorPrimary hover:bg-colorPrimary hover:text-white md:px-5 md:py-2"
+    :class="[
+      'flex h-full items-center justify-center rounded-full border border-colorPrimary bg-white text-colorPrimary hover:bg-colorPrimary hover:text-white md:px-5 md:py-2',
+      props.styles
+    ]"
   >
     {{ props.text }}
   </UButton>
@@ -14,11 +17,13 @@ const props = withDefaults(
     type?: string
     icon?: string
     text?: string
+    styles?: string
   }>(),
   {
     type: 'button',
     text: '',
-    icon: ''
+    icon: '',
+    styles: ''
   }
 )
 </script>

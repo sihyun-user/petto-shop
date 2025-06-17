@@ -1,10 +1,10 @@
 <template>
   <div>
     <LayoutBannerBreadcrumb title="關於我們" :links="[{ label: '關於我們' }]" />
-    <section class="container pt-[40px]">
-      <div class="w-full rounded border border-colorGray bg-colorGrayLight p-4">
+    <section class="container py-[40px]">
+      <main class="mx-auto max-w-3xl rounded border border-colorGray bg-colorGrayLight p-4">
         <UForm
-          class="mx-auto my-8 max-w-4xl space-y-4"
+          class="mx-auto my-4 max-w-4xl space-y-4"
           :state="state"
           :schema="schema"
           @submit="submit"
@@ -30,7 +30,7 @@
               v-model="state.email"
               name="email"
               label="電子信箱"
-              placeholder="請輸入電子郵件"
+              placeholder="請輸入電子信箱"
               required
             />
             <UiFormGroupInput
@@ -49,9 +49,11 @@
               :rows="12"
             />
           </UFormGroup>
-          <UiBaseButton text="送出" type="submit" :is-loading="isLoading" />
+          <div class="flex justify-end">
+            <UiBaseButton text="送出" type="submit" :is-loading="isLoading" />
+          </div>
         </UForm>
-      </div>
+      </main>
     </section>
   </div>
 </template>
@@ -75,7 +77,7 @@ const isLoading = ref(false)
 const schema = z.object({
   subject: z.string().min(2, '主旨為必填項目'),
   name: z.string().min(2, '姓名為必填項目'),
-  email: z.string().email('請輸入有效的電子郵件地址'),
+  email: z.string().email('請輸入有效的電子信箱'),
   phone: z.string().optional(),
   message: z.string().min(10, '內容至少需要10個字')
 })

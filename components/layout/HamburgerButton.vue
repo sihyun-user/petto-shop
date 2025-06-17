@@ -95,7 +95,7 @@
               <span
                 class="absolute -right-1 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimaryDark text-xs text-white shadow"
               >
-                5
+                {{ cartAmount }}
               </span>
             </UButton>
           </NuxtLink>
@@ -112,7 +112,11 @@
   </div>
 </template>
 <script setup lang="ts">
+import { useCartStore } from '@/store/cart'
+
 const navLinks = useNavLinks()
+const cartStore = useCartStore()
+const { cartAmount } = storeToRefs(cartStore)
 
 const isOpen = ref(false)
 const isSubMenuOpen = ref(false)

@@ -1,10 +1,16 @@
 <template>
   <section class="container min-h-screen py-[40px]">
     <main v-if="productData" class="mx-auto max-w-3xl">
+      <h3 class="mb-4 text-colorBlack">購物車</h3>
       <div class="rounded-lg rounded-b-none border border-b-0 border-colorGray bg-colorGrayLight">
         <UTable
+          row-key="id"
           :columns="columns"
           :rows="productData"
+          :empty-state="{
+            icon: 'i-heroicons-shopping-cart-solid',
+            label: '您的購物車裡還沒有任何商品。'
+          }"
           :ui="{
             th: { color: 'text-colorBlack', base: 'border-b border-colorGray' },
             td: { color: 'text-colorBlack', base: 'border-b border-colorGray' }
@@ -17,93 +23,74 @@
               class="h-16 w-20 min-w-20 rounded object-cover"
             />
           </template>
-          <template #price-data="{ row }">
-            {{ row.discount ?? row.price }}
-          </template>
-          <template #numbers-data="{ row }">
-            <UiSelectNumbers
+          <template #price-data="{ row }"> ${{ row.discount ?? row.price }} </template>
+          <template #quantity-data="{ row }">
+            <UiUpdateQuantity
+              :key="row.id"
               :model-value="row.quantity"
-              @update:model-value="(val) => handleUpdateQuantity(row.id, val)"
+              @update:model-value="(val) => handleUpdateQuantity(row.id, row.name, val)"
             />
           </template>
           <template #total-data="{ row }">
-            {{ row.discount ? row.discount * row.quantity : row.price * row.quantity }}
+            ${{ row.discount ? row.discount * row.quantity : row.price * row.quantity }}
           </template>
           <template #delete-data="{ row }">
             <UIcon
               name="heroicons:x-mark-16-solid"
               class="h-6 w-6 cursor-pointer hover:text-colorRed"
-              @click="() => removeItem(row.id)"
+              @click="() => handleRemoveItem(row.id, row.name)"
             />
           </template>
         </UTable>
       </div>
       <div class="rounded-lg rounded-t-none border border-colorGray bg-colorGrayLight">
         <div class="flex items-center justify-between p-4">
-          <p class="text-colorBlack">總計</p>
-          <p class="text-2xl font-bold text-colorBlack">$1336</p>
+          <p class="text-sm text-colorBlack md:text-base">總計</p>
+          <p class="text-xl font-bold text-colorBlack md:text-2xl">NT${{ totalPrice }}</p>
+        </div>
+        <div v-if="productData.length > 0">
+          <div class="flex items-center justify-between border-t border-colorGray p-4">
+            <p class="text-sm text-colorBlack md:text-base">運送方式</p>
+            <p class="text-sm text-colorBlack md:text-base">常溫宅配 (免運費)</p>
+          </div>
         </div>
       </div>
+      <div v-if="productData && productData.length > 0" class="mt-8 flex justify-end">
+        <NuxtLink to="/checkout">
+          <UiBaseButton text="前往結帳" />
+        </NuxtLink>
+      </div>
     </main>
-    <UiPageSpinner v-else />
+    <UiPageSpinner v-if="isLoading" />
   </section>
 </template>
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import { useCartStore } from '@/store/cart'
-import type { Product } from '@/types'
+
+usePageSeo({
+  title: '購物車'
+})
 
 const columns = [
   { key: 'image', label: '圖片' },
   { key: 'name', label: '商品' },
   { key: 'price', label: '價格' },
-  { key: 'numbers', label: '數量' },
+  { key: 'quantity', label: '數量' },
   { key: 'total', label: '總計' },
   { key: 'delete' }
 ]
 
-const supabase = useSupabaseClient()
-const cartStroe = useCartStore()
-const { updateQuantity, removeItem } = cartStroe
-const { cartItems } = storeToRefs(cartStroe)
+const cartStore = useCartStore()
+const { removeProductSuccess } = useAppToast()
 
-const productIds = computed(() => cartItems.value.map((item) => item.id))
-
-const { data } = await useAsyncData(
-  'cart',
-  async () => {
-    if (productIds.value.length === 0) return []
-
-    const { data, error } = await supabase.from('products').select('*').in('id', productIds.value)
-
-    if (error) {
-      showError('發生錯誤，請稍後再試！')
-      return []
-    }
-    return data
-  },
-  {
-    server: false
-  }
-)
-
-const productData = computed(() => {
-  if (!data.value) return null
-
-  return data.value.map((product: Product) => {
-    const cartItem = cartItems.value.find((item) => item.id === product.id)
-    return {
-      ...product,
-      quantity: cartItem?.quantity ?? 1
-    }
-  })
-})
-
-const handleUpdateQuantity = (id: string, quantity: number) => {
-  if (quantity === 0) {
-    removeItem(id)
-  } else {
-    updateQuantity({ id, quantity })
-  }
+const handleUpdateQuantity = (id: string, name: string, quantity: number) => {
+  cartStore.setUpdateQuantity({ id, name, quantity })
 }
+
+const handleRemoveItem = (id: string, name: string) => {
+  cartStore.removeItem(id)
+  removeProductSuccess(name)
+}
+
+const { isLoading, productData, totalPrice } = useGetCart()
 </script>

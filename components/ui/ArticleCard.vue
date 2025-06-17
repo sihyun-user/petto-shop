@@ -20,11 +20,13 @@
       </NuxtLink>
       <div class="flex flex-col space-y-2">
         <div class="line-clamp-3">{{ props.article.description }}</div>
-        <UiLineButton
-          icon="i-heroicons:arrow-long-right-solid"
-          text="閱讀更多"
-          class="w-fit flex-row-reverse"
-        />
+        <div class="w-fit">
+          <UiLineButton
+            icon="i-heroicons:arrow-long-right-solid"
+            text="閱讀更多"
+            styles="flex-row-reverse"
+          />
+        </div>
       </div>
     </div>
   </div>

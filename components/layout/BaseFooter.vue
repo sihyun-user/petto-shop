@@ -43,7 +43,7 @@
             <UInput
               v-model="state.email"
               variant="none"
-              placeholder="請輸入您的電子郵件"
+              placeholder="請輸入電子信箱"
               class="rounded-md bg-white text-colorBlack"
               size="lg"
             />
@@ -94,7 +94,7 @@ const state = ref({
 })
 
 const schema = z.object({
-  email: z.string().email('請輸入有效的電子郵件地址')
+  email: z.string().email('請輸入有效的電子信箱')
 })
 
 const submit = async () => {}

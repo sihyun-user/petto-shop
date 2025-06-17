@@ -5,6 +5,11 @@ export const useCartStore = defineStore(
   'cart',
   () => {
     const cartItems = ref<CartItem[]>([])
+    const { removeProductSuccess } = useAppToast()
+
+    const cartAmount = computed(() => {
+      return cartItems.value.reduce((amount, item) => amount + item.quantity, 0)
+    })
 
     const addItem = ({ id, quantity }: { id: string; quantity: number }) => {
       const data = cartItems.value.find((item) => item.id === id)
@@ -23,17 +28,31 @@ export const useCartStore = defineStore(
       cartItems.value = []
     }
 
-    const updateQuantity = ({ id, quantity }: { id: string; quantity: number }) => {
-      const item = cartItems.value.find((item) => item.id === id)
-      if (item) item.quantity = quantity
+    const setUpdateQuantity = ({
+      id,
+      name,
+      quantity
+    }: {
+      id: string
+      name: string
+      quantity: number
+    }) => {
+      if (quantity === 0) {
+        removeItem(id)
+        removeProductSuccess(name)
+      } else {
+        const item = cartItems.value.find((item) => item.id === id)
+        if (item) item.quantity = quantity
+      }
     }
 
     return {
       cartItems,
+      cartAmount,
       addItem,
       removeItem,
       clearCart,
-      updateQuantity
+      setUpdateQuantity
     }
   },
   {

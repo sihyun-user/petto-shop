@@ -53,10 +53,10 @@
         <div class="mt-8 flex flex-wrap justify-between gap-8">
           <div class="flex items-center gap-4">
             <p class="text-colorBlack">購買數量</p>
-            <UiSelectNumbers v-model="quantity" />
+            <UiUpdateQuantity v-model="quantity" />
           </div>
           <div>
-            <UiBaseButton text="加入購物車" />
+            <UiBaseButton text="加入購物車" @click="addToCart(product)" />
           </div>
         </div>
       </div>
@@ -95,6 +95,7 @@
 </template>
 <script setup lang="ts">
 import { ZoomImg } from 'vue3-zoomer'
+import { useCartStore } from '@/store/cart'
 import type { Product } from '@/types'
 
 const supabase = useSupabaseClient()
@@ -143,4 +144,16 @@ watch(
   },
   { immediate: true }
 )
+const cartStore = useCartStore()
+const { addProductSuccess } = useAppToast()
+
+const addToCart = (product: Product) => {
+  if (quantity.value > 0) {
+    cartStore.addItem({
+      id: product.id,
+      quantity: quantity.value
+    })
+    addProductSuccess(product.name)
+  }
+}
 </script>
