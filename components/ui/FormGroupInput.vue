@@ -3,6 +3,7 @@
     <UInput
       :model-value="props.modelValue"
       :placeholder="props.placeholder"
+      :type="props.type"
       class="rounded-md border border-colorGray bg-white text-colorBlack"
       variant="none"
       size="lg"
@@ -12,28 +13,24 @@
 </template>
 <script setup lang="ts">
 const emit = defineEmits(['update:modelValue'])
-const props = defineProps({
-  modelValue: {
-    type: String,
-    default: ''
-  },
-  label: {
-    type: String,
-    default: ''
-  },
-  name: {
-    type: String,
-    default: ''
-  },
-  placeholder: {
-    type: String,
-    default: ''
-  },
-  required: {
-    type: Boolean,
-    default: false
+const props = withDefaults(
+  defineProps<{
+    modelValue: string
+    label: string
+    name: string
+    placeholder: string
+    required?: boolean
+    type?: string
+  }>(),
+  {
+    modelValue: '',
+    label: '',
+    name: '',
+    placeholder: '',
+    required: false,
+    type: 'text'
   }
-})
+)
 
 const onChangeInput = (value: string) => {
   emit('update:modelValue', value)

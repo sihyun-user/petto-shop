@@ -3,12 +3,7 @@
     <LayoutBannerBreadcrumb title="關於我們" :links="[{ label: '關於我們' }]" />
     <section class="container py-[40px]">
       <main class="mx-auto max-w-3xl rounded border border-colorGray bg-colorGrayLight p-4">
-        <UForm
-          class="mx-auto my-4 max-w-4xl space-y-4"
-          :state="state"
-          :schema="schema"
-          @submit="submit"
-        >
+        <UForm class="mx-auto max-w-4xl space-y-4" :state="state" :schema="schema" @submit="submit">
           <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
             <UiFormGroupInput
               v-model="state.subject"

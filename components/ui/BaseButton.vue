@@ -1,13 +1,13 @@
 <template>
   <UButton
-    :type="props.type"
     variant="solid"
+    :type="props.type"
     :class="[
       'flex items-center justify-center rounded-full bg-colorPrimary px-5 py-3 text-white hover:bg-colorPrimaryDark md:px-9 md:py-3',
-      props.isLoading ? 'pointer-events-none cursor-not-allowed opacity-50' : ''
+      props.isLoading || props.isDisabled ? 'pointer-events-none cursor-not-allowed opacity-50' : ''
     ]"
   >
-    <UiLoadingSpinner v-if="isLoading" styles="mr-1 h-5 w-5" />
+    <UiLoadingSpinner v-if="props.isLoading && !props.isDisabled" styles="mr-1 h-5 w-5" />
     {{ props.text }}
   </UButton>
 </template>
@@ -17,11 +17,13 @@ const props = withDefaults(
     type?: string
     text?: string
     isLoading?: boolean
+    isDisabled?: boolean
   }>(),
   {
     type: 'button',
     text: '',
-    isLoading: false
+    isLoading: false,
+    isDisabled: false
   }
 )
 </script>
