@@ -4,7 +4,7 @@
       <div class="flex h-16 items-center justify-between">
         <NuxtLink to="/" title="logo" class="flex items-center gap-3 text-colorBlack">
           <SvgMainLogo class="h-8 w-auto md:h-10" />
-          <span class="text-[20px] font-bold md:text-[26px]">Peto Shop</span>
+          <span class="text-[20px] font-bold md:text-[22px] lg:text-[26px]">Peto Shop</span>
         </NuxtLink>
 
         <nav class="hidden h-full items-center gap-6 md:flex">
@@ -59,32 +59,58 @@
           </template>
         </nav>
 
-        <div class="hidden items-center gap-2 md:flex">
-          <UButton
-            icon="i-heroicons-magnifying-glass"
-            variant="ghost"
-            class="text-colorBlack hover:bg-transparent hover:text-colorPrimaryDark"
-          />
-          <NuxtLink to="/cart">
-            <UButton
-              icon="i-heroicons:shopping-cart-solid"
-              variant="ghost"
-              class="relative text-colorBlack hover:bg-transparent hover:text-colorPrimaryDark"
-            >
-              <span
-                class="absolute -right-1 -top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimary text-xs text-white shadow"
-              >
-                {{ cartAmount }}
-              </span>
-            </UButton>
-          </NuxtLink>
-          <NuxtLink to="/">
-            <UButton
-              icon="i-heroicons:user-20-solid"
-              variant="ghost"
-              class="text-colorBlack hover:bg-transparent hover:text-colorPrimaryDark"
+        <div class="hidden items-center gap-4 md:flex">
+          <NuxtLink to="/cart" class="relative flex">
+            <UIcon
+              name="i-heroicons:shopping-cart-solid"
+              class="h-6 w-6 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
             />
+            <span
+              class="absolute -right-2.5 -top-3.5 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimary text-xs text-white shadow"
+            >
+              {{ cartAmount }}
+            </span>
           </NuxtLink>
+          <div class="flex">
+            <UDropdown
+              v-if="user"
+              :items="items"
+              :ui="{
+                item: {
+                  padding: 'p-2',
+                  inactive: 'text-colorClack',
+                  active: 'bg-colorGrayLight text-colorPrimary'
+                },
+                width: 'w-64'
+              }"
+            >
+              <UIcon
+                name="heroicons:user-circle-16-solid"
+                class="h-6 w-6 flex-shrink-0 text-colorBlack"
+              />
+
+              <template #account="{ item }">
+                <div class="text-left">
+                  <p>登入於</p>
+                  <p class="font-medium">
+                    {{ item.label }}
+                  </p>
+                </div>
+              </template>
+
+              <template #item="{ item }">
+                <span>{{ item.label }}</span>
+
+                <UIcon :name="item.icon" class="ml-auto h-4 w-4 flex-shrink-0" />
+              </template>
+            </UDropdown>
+            <NuxtLink v-else to="/my-account" class="flex">
+              <UIcon
+                name="i-heroicons:user-20-solid"
+                class="h-6 w-6 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
+              />
+            </NuxtLink>
+          </div>
         </div>
 
         <LayoutHamburgerButton />
@@ -95,10 +121,40 @@
 
 <script setup lang="ts">
 import { useCartStore } from '@/store/cart'
+import { useUserStore } from '@/store/user'
 
 const navLinks = useNavLinks()
 const route = useRoute()
-
 const cartStore = useCartStore()
+const userStore = useUserStore()
 const { cartAmount } = storeToRefs(cartStore)
+const { user } = storeToRefs(userStore)
+
+const supabase = useSupabaseClient()
+
+const items = [
+  [
+    {
+      label: user.value?.email,
+      slot: 'account',
+      disabled: true
+    }
+  ],
+  [
+    {
+      label: '個人資料頁',
+      icon: 'i-heroicons-cog-8-tooth',
+      click: () => navigateTo(`/user/${user.value?.id}`)
+    },
+    {
+      label: '登出',
+      icon: 'i-heroicons-arrow-left-on-rectangle',
+      click: async () => {
+        await supabase.auth.signOut()
+        userStore.resetUser()
+        return navigateTo('/my-account')
+      }
+    }
+  ]
+]
 </script>

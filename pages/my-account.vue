@@ -113,11 +113,14 @@ const loginSubmit = async () => {
     if (error) {
       const errorMessage = getErrorMessage(error)
       showError(errorMessage)
-    } else {
-      showSuccess('登入成功！歡迎回來')
-      loginState.value.email = ''
-      loginState.value.password = ''
+      return
     }
+
+    showSuccess('登入成功！歡迎回來')
+    loginState.value = { email: '', password: '' }
+
+    await getUserProfile()
+    navigateTo('/')
   } catch (error) {
     showError('登入時發生錯誤，請稍後再試')
   } finally {

@@ -27,3 +27,10 @@ export interface CartItem {
   id: string
   quantity: number
 }
+
+export interface User {
+  id: string
+  name: string
+  email: string
+  role: 'user' | 'admin'
+}

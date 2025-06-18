@@ -3,12 +3,7 @@
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-    <UNotifications
-      :ui="{
-        position: ''
-      }"
-      class="top-center-notification"
-    />
+    <UNotifications class="top-center-notification" />
   </div>
 </template>
 

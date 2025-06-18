@@ -77,17 +77,17 @@ function generateSpecs() {
 function getImageKeywordByCategory(categoryName) {
   if (['主食', '零食'].includes(categoryName))
     return [
-      'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//food_1.jpg',
-      'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//food_3.jpg'
+      'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/all//food_1.jpg',
+      'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/all//food_3.jpg'
     ]
   if (categoryName === '玩具')
-    return ['https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//toy.jpg']
+    return ['https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/all//toy.jpg']
   if (categoryName === '清潔洗護')
     return [
-      'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//wash_1.jpg',
-      'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//wash_2.jpg'
+      'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/all//wash_1.jpg',
+      'https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/all//wash_2.jpg'
     ]
-  return ['https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/products//other.jpg']
+  return ['https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/all//other.jpg']
 }
 
 async function seedProducts() {

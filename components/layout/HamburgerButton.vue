@@ -32,7 +32,7 @@
           <template v-for="link in navLinks" :key="link.label">
             <div v-if="link.children">
               <div
-                class="cursor-pointer border-b border-b-colorGray px-[50px] py-4 text-base font-medium text-colorGrayDark hover:bg-colorGrayLight"
+                class="relative cursor-pointer border-b border-b-colorGray px-[50px] py-4 text-base font-medium text-colorGrayDark hover:bg-colorGrayLight"
                 @click="isSubMenuOpen = !isSubMenuOpen"
               >
                 {{ link.label }}
@@ -81,31 +81,31 @@
         </nav>
 
         <div class="mt-6 flex items-center justify-end space-x-4 px-4">
-          <UButton
-            icon="i-heroicons-magnifying-glass"
-            variant="ghost"
-            class="text-colorBlack hover:bg-transparent hover:text-colorPrimaryDark"
-          />
-          <NuxtLink to="/cart">
-            <UButton
-              icon="i-heroicons:shopping-cart-solid"
-              variant="ghost"
-              class="relative text-colorBlack hover:bg-transparent hover:text-colorPrimaryDark"
-            >
-              <span
-                class="absolute -right-1 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimaryDark text-xs text-white shadow"
-              >
-                {{ cartAmount }}
-              </span>
-            </UButton>
-          </NuxtLink>
-          <NuxtLink to="/profile">
-            <UButton
-              icon="i-heroicons:user-20-solid"
-              variant="ghost"
-              class="text-colorBlack hover:bg-transparent hover:text-colorPrimaryDark"
+          <NuxtLink to="/cart" class="relative flex">
+            <UIcon
+              name="i-heroicons:shopping-cart-solid"
+              class="h-6 w-6 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
             />
+            <span
+              class="absolute -right-2.5 -top-3.5 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimary text-xs text-white shadow"
+            >
+              {{ cartAmount }}
+            </span>
           </NuxtLink>
+          <div class="flex">
+            <NuxtLink v-if="user" :to="`user/${user.id}`" class="flex">
+              <UIcon
+                name="i-heroicons:user-20-solid"
+                class="h-6 w-6 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
+              />
+            </NuxtLink>
+            <NuxtLink v-else to="/my-account" class="flex">
+              <UIcon
+                name="i-heroicons:user-20-solid"
+                class="h-6 w-6 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
+              />
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </USlideover>
@@ -113,11 +113,20 @@
 </template>
 <script setup lang="ts">
 import { useCartStore } from '@/store/cart'
+import { useUserStore } from '@/store/user'
 
+const route = useRoute()
 const navLinks = useNavLinks()
 const cartStore = useCartStore()
+const userStore = useUserStore()
 const { cartAmount } = storeToRefs(cartStore)
+const { user } = storeToRefs(userStore)
 
 const isOpen = ref(false)
 const isSubMenuOpen = ref(false)
+
+watch(route, () => {
+  isOpen.value = false
+  isSubMenuOpen.value = false
+})
 </script>
