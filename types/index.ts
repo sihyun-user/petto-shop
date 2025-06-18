@@ -17,10 +17,9 @@ export interface Product {
 export interface Atricle {
   id: number
   name: string
-  description: string
+  content: string
   image: string
-  date: string
-  author: string
+  created_at: string
 }
 
 export interface CartItem {

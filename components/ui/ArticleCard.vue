@@ -11,15 +11,13 @@
 
     <div class="flex flex-1 flex-col justify-between p-3 md:p-4">
       <NuxtLink to="/" class="mb-2 inline-block">
-        <div class="text-sm text-colorBlack">
-          {{ format(new Date(props.article.date), 'yyyy.MM.dd') }}
-        </div>
+        <div class="text-sm text-colorBlack">{{ formattedDate }}</div>
         <h3 class="line-clamp-2 font-bold text-colorBlack hover:text-colorPrimaryDark">
           {{ props.article.name }}
         </h3>
       </NuxtLink>
       <div class="flex flex-col space-y-2">
-        <div class="line-clamp-3">{{ props.article.description }}</div>
+        <div class="line-clamp-3">{{ props.article.content }}</div>
         <div class="w-fit">
           <UiLineButton
             icon="i-heroicons:arrow-long-right-solid"
@@ -32,10 +30,15 @@
   </div>
 </template>
 <script setup lang="ts">
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import type { Atricle } from '~/types'
 
 const props = defineProps<{
   article: Atricle
 }>()
+
+const formattedDate = computed(() => {
+  if (!props.article.created_at) return ''
+  return format(parseISO(props.article.created_at), 'yyyy.MM.dd')
+})
 </script>
