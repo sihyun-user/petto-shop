@@ -114,7 +114,7 @@ const { data: product } = await useAsyncData<Product | null>('product', async ()
     .eq('slug', productSlug as string)
     .maybeSingle()
 
-  if (error || !data) return null
+  if (error) return null
 
   usePageSeo({
     title: (data as Product).name,

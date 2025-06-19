@@ -16,6 +16,7 @@ export default defineNuxtConfig({
   supabase: {
     redirect: false
   },
+  plugins: ['@/plugins/vue-dompurify-html.ts'],
   vite: {
     optimizeDeps: {
       exclude: ['estree-walker']

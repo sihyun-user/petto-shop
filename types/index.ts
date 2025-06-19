@@ -14,9 +14,10 @@ export interface Product {
   created_at: string
 }
 
-export interface Atricle {
+export interface Article {
   id: number
   name: string
+  description: string
   content: string
   image: string
   created_at: string

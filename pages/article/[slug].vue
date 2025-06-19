@@ -1,31 +1,40 @@
 <template>
-  <section v-if="article">
-    <NuxtImage
-      :src="article.image"
-      width="1920"
-      height="400"
-      class="h-[400px] w-full object-cover"
+  <section v-if="article" class="container py-[40px]">
+    <NuxtImg
+      src="https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/all/article_1.jpg"
+      class="mb-8 h-[150px] w-full object-cover md:h-[400px]"
     />
+    <div class="mb-1">{{ formattedDate }}</div>
+    <article v-dompurify-html="article.content"></article>
   </section>
 </template>
 <script setup lang="ts">
+import { format, parseISO } from 'date-fns'
+import type { Article } from '@/types'
+
 const route = useRoute()
 const supbase = useSupabaseClient()
 
-const { showError } = useAppToast()
-
-const { data: article } = await useAsyncData('article', async () => {
+const { data: article } = await useAsyncData<Article | null>('article', async () => {
   const { data, error } = await supbase
     .from('articles')
     .select('*')
-    .eq('title', route.params.slug)
+    .eq('name', route.params.slug)
     .single()
 
-  if (error) {
-    showError('無法載入文章，請稍後再試')
-    return null
-  }
+  if (error) return null
+
+  usePageSeo({
+    title: (data as Article).name,
+    description: (data as Article).description,
+    image: (data as Article).image
+  })
 
   return data
+})
+
+const formattedDate = computed(() => {
+  if (!article.value) return null
+  return format(parseISO(article.value.created_at), 'yyyy.MM.dd')
 })
 </script>
