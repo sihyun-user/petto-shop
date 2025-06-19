@@ -17,7 +17,7 @@
         </p>
       </div>
       <NuxtImg
-        src="/images/banner_bg_2.jpg"
+        src="/images/image_1.jpg"
         height="450"
         class="h-[200px] w-full rounded-lg object-cover md:h-[300px]"
       />
@@ -63,7 +63,9 @@
 
         <div
           class="absolute inset-0 bg-cover bg-center"
-          style="background-image: url('/images/products/pet.jpg')"
+          style="
+            background-image: url('https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/all//other.jpg');
+          "
         ></div>
         <div class="absolute inset-0 bg-black/60"></div>
       </div>

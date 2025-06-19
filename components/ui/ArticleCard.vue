@@ -1,6 +1,6 @@
 <template>
   <div class="flex h-auto w-full flex-col overflow-hidden rounded-lg bg-white shadow">
-    <NuxtLink to="/" class="h-[200px] w-full overflow-hidden">
+    <NuxtLink :to="`/article/${props.article.title}`" class="h-[200px] w-full overflow-hidden">
       <NuxtImg
         :src="props.article.image"
         height="200"
@@ -10,10 +10,10 @@
     </NuxtLink>
 
     <div class="flex flex-1 flex-col justify-between p-3 md:p-4">
-      <NuxtLink to="/" class="mb-2 inline-block">
+      <NuxtLink :to="`/article/${props.article.title}`" class="mb-2 inline-block">
         <div class="text-sm text-colorBlack">{{ formattedDate }}</div>
         <h3 class="line-clamp-2 font-bold text-colorBlack hover:text-colorPrimaryDark">
-          {{ props.article.name }}
+          {{ props.article.title }}
         </h3>
       </NuxtLink>
       <div class="flex flex-col space-y-2">

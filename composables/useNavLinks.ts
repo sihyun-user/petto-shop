@@ -12,7 +12,7 @@ export const useNavLinks = () => [
       { label: '其他', to: '/products/其他' }
     ]
   },
-  { label: '寵物專欄', to: '/blogs' },
+  { label: '寵物專欄', to: '/articles' },
   { label: '關於我們', to: '/about' },
   { label: '聯絡我們', to: '/contact' }
 ]
