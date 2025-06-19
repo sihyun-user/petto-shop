@@ -14,8 +14,8 @@
       }"
       @slide-change="onSlideChange"
     >
-      <SwiperSlide v-for="(card, index) in cards" :key="index">
-        <UiBoxCard :data="card" />
+      <SwiperSlide v-for="item in props.articles" :key="item.id">
+        <UiBoxCard :data="item" />
       </SwiperSlide>
     </Swiper>
     <div v-show="!isAtStart" ref="prevElRef" class="swiper-button swiper-button-prev">
@@ -30,6 +30,11 @@
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Pagination, Navigation, Virtual } from 'swiper/modules'
 import 'swiper/css'
+import type { Article } from '@/types'
+
+const props = defineProps<{
+  articles?: Article[]
+}>()
 
 const nextElRef = ref<HTMLElement | null>(null)
 const prevElRef = ref<HTMLElement | null>(null)
