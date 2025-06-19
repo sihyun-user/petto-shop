@@ -4,8 +4,9 @@
       <NuxtImg
         :src="props.product.images[0]"
         height="200"
+        quality="80"
         class="h-[200px] w-full object-cover"
-        alt="商品圖片"
+        :alt="props.product.name"
       />
     </NuxtLink>
 

@@ -1,8 +1,9 @@
 <template>
   <section v-if="article" class="container py-[40px]">
     <NuxtImg
-      src="https://pvpsjrejitbkulrngdiq.supabase.co/storage/v1/object/public/all/article_1.jpg"
+      :src="article.image"
       class="mb-8 h-[150px] w-full object-cover md:h-[400px]"
+      :alt="article.name"
     />
     <div class="mb-1">{{ formattedDate }}</div>
     <article v-dompurify-html="article.content"></article>

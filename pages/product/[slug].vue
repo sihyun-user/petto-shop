@@ -24,7 +24,7 @@
                 width="66"
                 height="66"
                 class="h-[66px] w-[66px] object-cover"
-                alt="product image"
+                :alt="`Product Image ${index + 1}`"
               />
             </div>
           </template>
@@ -114,7 +114,7 @@ const { data: product } = await useAsyncData<Product | null>('product', async ()
     .eq('slug', productSlug as string)
     .maybeSingle()
 
-  if (error) return null
+  if (error || !data) return null
 
   usePageSeo({
     title: (data as Product).name,

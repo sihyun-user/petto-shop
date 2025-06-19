@@ -4,7 +4,11 @@
       :model-value="props.modelValue"
       :placeholder="props.placeholder"
       :type="props.type"
-      class="rounded-md border border-colorGray bg-white text-colorBlack"
+      :disabled="props.disabled"
+      :class="[
+        'rounded-md border border-colorGray bg-white text-colorBlack',
+        props.disabled ? 'bg-colorGray' : ''
+      ]"
       variant="none"
       size="lg"
       @update:model-value="onChangeInput"
@@ -20,6 +24,7 @@ const props = withDefaults(
     name: string
     placeholder: string
     required?: boolean
+    disabled?: boolean
     type?: string
   }>(),
   {
@@ -28,6 +33,7 @@ const props = withDefaults(
     name: '',
     placeholder: '',
     required: false,
+    disabled: false,
     type: 'text'
   }
 )

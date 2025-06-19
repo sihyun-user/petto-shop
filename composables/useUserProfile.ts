@@ -1,7 +1,8 @@
+import type { User } from '@/types'
 import { useUserStore } from '@/store/user'
-const supabase = useSupabaseClient()
 
 export const getUserProfile = async () => {
+  const supabase = useSupabaseClient()
   const userStore = useUserStore()
 
   const { data: authData, error: authError } = await supabase.auth.getUser()
@@ -12,7 +13,7 @@ export const getUserProfile = async () => {
     .from('users')
     .select('*')
     .eq('id', authData.user.id)
-    .maybeSingle()
+    .maybeSingle<User>()
 
   if (error) return null
 

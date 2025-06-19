@@ -10,7 +10,7 @@
         @error="onError"
         @submit="onSubmit"
       >
-        <div class="w-full space-y-4 rounded border border-colorGray bg-colorGrayLight p-4">
+        <div class="w-full space-y-4 rounded-lg border border-colorGray bg-colorGrayLight p-4">
           <h4 class="-mx-4 border-b border-colorGray px-4 pb-2 text-colorBlack">帳單資訊</h4>
           <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
             <UiFormGroupInput
@@ -44,9 +44,9 @@
           <UiFormGroupInput
             v-model="state.phone"
             name="phone"
-            label="電話"
+            label="電話號碼"
             type="tel"
-            placeholder="請輸入電話"
+            placeholder="請輸入電話號碼"
             required
           />
           <UiFormGroupInput
@@ -57,7 +57,7 @@
             required
           />
         </div>
-        <div class="w-full rounded border border-colorGray bg-colorGrayLight p-4">
+        <div class="w-full rounded-lg border border-colorGray bg-colorGrayLight p-4">
           <h4 class="-mx-4 border-b border-colorGray px-4 pb-2 text-colorBlack">您的訂單</h4>
           <UTable
             :columns="columns"
@@ -133,9 +133,6 @@ const state = ref({
   email: '',
   phone: ''
 })
-const isLoading = ref(false)
-
-const { isLoading: isProductLoading, productData, totalPrice } = useGetCart()
 
 const schema = z.object({
   lastName: z.string().min(1, '名字為必填項目'),
@@ -149,6 +146,10 @@ const schema = z.object({
     .min(10, '電話號碼為必填項目')
     .regex(/^[0-9+\-\s]*$/, '電話號碼格式錯誤')
 })
+
+const isLoading = ref(false)
+
+const { isLoading: isProductLoading, productData, totalPrice } = useGetCart()
 
 const cityOptions = computed(() => twCities.map((city) => city.name))
 

@@ -20,6 +20,7 @@
         src="/images/image_1.jpg"
         height="450"
         class="h-[200px] w-full rounded-lg object-cover md:h-[300px]"
+        alt="About Image"
       />
     </section>
     <section class="bg-colorPrimaryLight">

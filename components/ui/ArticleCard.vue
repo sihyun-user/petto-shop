@@ -4,8 +4,9 @@
       <NuxtImg
         :src="props.article.image"
         height="200"
+        quality="80"
         class="h-full w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105"
-        alt="文章圖片"
+        :alt="props.article.name"
       />
     </NuxtLink>
 

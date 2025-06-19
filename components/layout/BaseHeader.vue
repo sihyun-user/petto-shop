@@ -81,22 +81,13 @@
                   inactive: 'text-colorClack',
                   active: 'bg-colorGrayLight text-colorPrimary'
                 },
-                width: 'w-64'
+                width: 'w-48'
               }"
             >
               <UIcon
                 name="heroicons:user-circle-16-solid"
                 class="h-6 w-6 flex-shrink-0 text-colorBlack"
               />
-
-              <template #account="{ item }">
-                <div class="text-left">
-                  <p>登入於</p>
-                  <p class="font-medium">
-                    {{ item.label }}
-                  </p>
-                </div>
-              </template>
 
               <template #item="{ item }">
                 <span>{{ item.label }}</span>
@@ -135,14 +126,7 @@ const supabase = useSupabaseClient()
 const items = [
   [
     {
-      label: user.value?.email,
-      slot: 'account',
-      disabled: true
-    }
-  ],
-  [
-    {
-      label: '個人資料頁',
+      label: '我的帳戶',
       icon: 'i-heroicons-cog-8-tooth',
       click: () => navigateTo(`/user/${user.value?.id}`)
     },
