@@ -93,7 +93,7 @@
             </span>
           </NuxtLink>
           <div class="flex">
-            <NuxtLink v-if="user" :to="`user/${user.id}`" class="flex">
+            <NuxtLink v-if="isLogin" :to="`user/${user.id}`" class="flex">
               <UIcon
                 name="i-heroicons:user-20-solid"
                 class="h-6 w-6 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
@@ -106,6 +106,12 @@
               />
             </NuxtLink>
           </div>
+          <UIcon
+            v-if="isLogin"
+            name="i-heroicons:arrow-left-on-rectangle-20-solid"
+            class="h-6 w-6 flex-shrink-0 cursor-pointer text-colorBlack hover:text-colorPrimaryDark"
+            @click="userStore.logout()"
+          />
         </div>
       </div>
     </USlideover>
@@ -120,7 +126,7 @@ const navLinks = useNavLinks()
 const cartStore = useCartStore()
 const userStore = useUserStore()
 const { cartAmount } = storeToRefs(cartStore)
-const { user } = storeToRefs(userStore)
+const { user, isLogin } = storeToRefs(userStore)
 
 const isOpen = ref(false)
 const isSubMenuOpen = ref(false)

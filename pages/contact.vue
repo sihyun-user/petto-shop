@@ -73,7 +73,18 @@ const schema = z.object({
   subject: z.string().min(2, '主旨為必填項目'),
   name: z.string().min(2, '姓名為必填項目'),
   email: z.string().email('請輸入有效的電子信箱'),
-  phone: z.string().optional(),
+  phone: z
+    .string()
+    .optional()
+    .refine(
+      (val) => {
+        if (!val || val === '') return true
+        return /^[0-9+\-\s]*$/.test(val) && val.length === 10
+      },
+      {
+        message: '電話號碼格式錯誤'
+      }
+    ),
   message: z.string().min(10, '內容至少需要10個字')
 })
 

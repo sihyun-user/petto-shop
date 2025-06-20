@@ -1,23 +1,23 @@
-import type { User } from '@/types'
-import { useUserStore } from '@/store/user'
-
 export const getUserProfile = async () => {
   const supabase = useSupabaseClient()
-  const userStore = useUserStore()
 
-  const { data: authData, error: authError } = await supabase.auth.getUser()
+  const { showError } = useAppToast()
 
-  if (authError || !authData.user) return null
+  try {
+    const { data, error } = await supabase.auth.getUser()
 
-  const { data, error } = await supabase
-    .from('users')
-    .select('*')
-    .eq('id', authData.user.id)
-    .maybeSingle<User>()
+    if (error || !data?.user) throw error
 
-  if (error) return null
+    const { data: profile, error: profileError } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', data.user.id)
+      .maybeSingle()
 
-  userStore.setUser(data)
+    if (profileError || !profile) throw profileError
 
-  return data
+    return data
+  } catch (error) {
+    showError('取得使用者資料失敗')
+  }
 }

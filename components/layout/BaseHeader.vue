@@ -73,7 +73,7 @@
           </NuxtLink>
           <div class="flex">
             <UDropdown
-              v-if="user"
+              v-if="isLogin"
               :items="items"
               :ui="{
                 item: {
@@ -119,9 +119,7 @@ const route = useRoute()
 const cartStore = useCartStore()
 const userStore = useUserStore()
 const { cartAmount } = storeToRefs(cartStore)
-const { user } = storeToRefs(userStore)
-
-const supabase = useSupabaseClient()
+const { user, isLogin } = storeToRefs(userStore)
 
 const items = [
   [
@@ -132,12 +130,8 @@ const items = [
     },
     {
       label: '登出',
-      icon: 'i-heroicons-arrow-left-on-rectangle',
-      click: async () => {
-        await supabase.auth.signOut()
-        userStore.resetUser()
-        return navigateTo('/my-account')
-      }
+      icon: 'i-heroicons:arrow-left-on-rectangle-20-solid',
+      click: () => userStore.logout()
     }
   ]
 ]

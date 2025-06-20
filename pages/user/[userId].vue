@@ -23,7 +23,7 @@
         <template #item="{ item }">
           <div class="mt-5 rounded-lg border border-colorGray bg-colorGrayLight p-4">
             <div v-if="item.key === 'profile'" class="space-y-3">
-              <UForm :state="state" :schema="schema" class="space-y-4">
+              <UForm :state="state" :schema="schema" class="space-y-4" @submit="onSubmit">
                 <UiFormGroupInput
                   v-model="state.name"
                   name="name"
@@ -47,7 +47,7 @@
                   required
                 />
                 <div class="flex justify-end">
-                  <UiBaseButton text="儲存" type="submit" :is-loading="false" />
+                  <UiBaseButton text="儲存" type="submit" :is-loading="isLoading" />
                 </div>
               </UForm>
             </div>
@@ -62,6 +62,10 @@
 import { z } from 'zod'
 import { useUserStore } from '@/store/user'
 import type { User } from '@/types'
+
+definePageMeta({
+  middleware: ['auth']
+})
 
 usePageSeo({
   title: '我的帳戶'
@@ -82,9 +86,12 @@ const items = [
   }
 ]
 
+const supabase = useSupabaseClient()
 const userStore = useUserStore()
 const { user } = storeToRefs(userStore)
+const { showError, showSuccess } = useAppToast()
 
+const isLoading = ref(false)
 const state = ref({
   name: '',
   email: '',
@@ -96,11 +103,23 @@ const schema = z.object({
   email: z.string().email('請輸入有效的電子信箱'),
   phone: z
     .string()
-    .regex(/^[0-9+\-\s]*$/, '電話號碼格式錯誤')
-    .min(10, '電話號碼長度不足')
     .optional()
-    .or(z.literal(''))
+    .refine(
+      (val) => {
+        if (!val || val === '') return true
+        return /^[0-9+\-\s]*$/.test(val) && val.length === 10
+      },
+      {
+        message: '電話號碼格式錯誤'
+      }
+    )
 })
+
+const setStateUser = (userData: User) => {
+  state.value.name = userData.name || ''
+  state.value.email = userData.email || ''
+  state.value.phone = userData.phone || ''
+}
 
 onMounted(() => {
   if (!user.value) {
@@ -108,15 +127,43 @@ onMounted(() => {
   }
 })
 
-watch(user, (val) => {
-  if (val) {
-    setStateUser(val)
-  }
-})
+watch(
+  user,
+  (val) => {
+    if (val) {
+      setStateUser(val)
+    }
+  },
+  { deep: true, immediate: true }
+)
 
-const setStateUser = (userData: User) => {
-  state.value.name = userData.name || ''
-  state.value.email = userData.email || ''
-  state.value.phone = userData.phone || ''
+const onSubmit = async () => {
+  if (!user.value) {
+    showError('請先重新登入')
+    userStore.logout()
+    return
+  }
+
+  const { name, phone } = state.value
+
+  if (!name && !phone) return
+
+  isLoading.value = true
+
+  try {
+    const { error } = await (supabase.from('users') as any)
+      .update({ name, phone })
+      .eq('id', user.value!.id)
+
+    if (error) throw error
+
+    await getUserProfile()
+
+    showSuccess('使用者資料已更新')
+  } catch (error) {
+    showError('更新使用者資料失敗')
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>
