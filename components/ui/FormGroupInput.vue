@@ -1,5 +1,14 @@
 <template>
-  <UFormGroup :label="props.label" :name="props.name" :required="props.required">
+  <UFormGroup
+    :label="props.label"
+    :name="props.name"
+    :required="props.required"
+    :ui="{
+      label: {
+        base: 'text-colorBlack'
+      }
+    }"
+  >
     <UInput
       :model-value="props.modelValue"
       :placeholder="props.placeholder"

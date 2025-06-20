@@ -6,6 +6,7 @@ module.exports = {
         colorPrimaryLight: '#E8E1DA',
         colorPrimaryDark: '#786056',
         colorSecondary: '#bda697',
+        colorSecondaryDark: '#b19486',
         colorGrayLight: '#f8f8f8',
         colorGray: '#e5e7eb',
         colorGrayDark: '#636363',

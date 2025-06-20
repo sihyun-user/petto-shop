@@ -84,7 +84,17 @@
                 width: 'w-48'
               }"
             >
+              <UAvatar
+                v-if="user && user.name"
+                :alt="user.name.split(' ')[0]"
+                class="h-6 w-6"
+                :ui="{
+                  background: 'bg-colorPrimaryLight',
+                  placeholder: 'text-colorPrimary font-bold'
+                }"
+              />
               <UIcon
+                v-else
                 name="heroicons:user-circle-16-solid"
                 class="h-6 w-6 flex-shrink-0 text-colorBlack"
               />
