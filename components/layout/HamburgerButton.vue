@@ -80,36 +80,46 @@
           </template>
         </nav>
 
-        <div class="mt-6 flex items-center justify-end space-x-4 px-4">
+        <div class="mt-6 flex items-center justify-end gap-5 px-4">
           <NuxtLink to="/cart" class="relative flex">
             <UIcon
               name="i-heroicons:shopping-cart-solid"
-              class="h-6 w-6 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
+              class="h-7 w-7 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
             />
             <span
-              class="absolute -right-2.5 -top-3.5 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimary text-xs text-white shadow"
+              class="absolute -right-2.5 -top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimary text-xs text-white shadow"
             >
               {{ cartAmount }}
             </span>
           </NuxtLink>
           <div class="flex">
-            <NuxtLink v-if="isLogin" :to="`user/${user.id}`" class="flex">
+            <NuxtLink v-if="user" :to="`user/${user.id}`" class="flex">
+              <UAvatar
+                v-if="user && user.name"
+                :alt="user.name.split(' ')[0]"
+                class="h-7 w-7 flex-shrink-0"
+                :ui="{
+                  background: 'bg-colorPrimaryLight',
+                  placeholder: 'text-colorPrimary font-bold'
+                }"
+              />
               <UIcon
-                name="i-heroicons:user-20-solid"
-                class="h-6 w-6 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
+                v-else
+                name="heroicons:user-circle-16-solid"
+                class="h-7 w-7 flex-shrink-0 text-colorBlack"
               />
             </NuxtLink>
             <NuxtLink v-else to="/my-account" class="flex">
               <UIcon
                 name="i-heroicons:user-20-solid"
-                class="h-6 w-6 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
+                class="h-7 w-7 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
               />
             </NuxtLink>
           </div>
           <UIcon
-            v-if="isLogin"
-            name="i-heroicons:arrow-left-on-rectangle-20-solid"
-            class="h-6 w-6 flex-shrink-0 cursor-pointer text-colorBlack hover:text-colorPrimaryDark"
+            v-if="user"
+            name="i-heroicons:arrow-right-on-rectangle-solid"
+            class="h-7 w-7 flex-shrink-0 cursor-pointer text-colorBlack hover:text-colorPrimaryDark"
             @click="userStore.logout()"
           />
         </div>
@@ -126,7 +136,7 @@ const navLinks = useNavLinks()
 const cartStore = useCartStore()
 const userStore = useUserStore()
 const { cartAmount } = storeToRefs(cartStore)
-const { user, isLogin } = storeToRefs(userStore)
+const { user } = storeToRefs(userStore)
 
 const isOpen = ref(false)
 const isSubMenuOpen = ref(false)

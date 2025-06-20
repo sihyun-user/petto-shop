@@ -59,14 +59,14 @@
           </template>
         </nav>
 
-        <div class="hidden items-center gap-4 md:flex">
+        <div class="hidden items-center gap-5 md:flex">
           <NuxtLink to="/cart" class="relative flex">
             <UIcon
               name="i-heroicons:shopping-cart-solid"
-              class="h-6 w-6 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
+              class="h-7 w-7 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
             />
             <span
-              class="absolute -right-2.5 -top-3.5 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimary text-xs text-white shadow"
+              class="absolute -right-2.5 -top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-colorPrimary text-xs text-white shadow"
             >
               {{ cartAmount }}
             </span>
@@ -87,7 +87,7 @@
               <UAvatar
                 v-if="user && user.name"
                 :alt="user.name.split(' ')[0]"
-                class="h-6 w-6"
+                class="h-7 w-7 flex-shrink-0"
                 :ui="{
                   background: 'bg-colorPrimaryLight',
                   placeholder: 'text-colorPrimary font-bold'
@@ -96,7 +96,7 @@
               <UIcon
                 v-else
                 name="heroicons:user-circle-16-solid"
-                class="h-6 w-6 flex-shrink-0 text-colorBlack"
+                class="h-7 w-7 flex-shrink-0 text-colorBlack"
               />
 
               <template #item="{ item }">
@@ -108,7 +108,7 @@
             <NuxtLink v-else to="/my-account" class="flex">
               <UIcon
                 name="i-heroicons:user-20-solid"
-                class="h-6 w-6 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
+                class="h-7 w-7 flex-shrink-0 text-colorBlack hover:text-colorPrimaryDark"
               />
             </NuxtLink>
           </div>
