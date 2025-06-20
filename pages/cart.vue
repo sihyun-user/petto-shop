@@ -43,22 +43,21 @@
           </template>
         </UTable>
       </div>
-      <div class="rounded-lg rounded-t-none border border-colorGray bg-colorGrayLight">
+      <div class="rounded-lg rounded-t-none border border-t-0 border-colorGray bg-colorGrayLight">
+        <div
+          v-if="productData.length > 0"
+          class="flex items-center justify-between border-b border-colorGray p-4"
+        >
+          <p class="text-sm text-colorBlack md:text-base">運送方式</p>
+          <p class="text-sm text-colorBlack md:text-base">常溫宅配 (免運費)</p>
+        </div>
         <div class="flex items-center justify-between p-4">
           <p class="text-sm text-colorBlack md:text-base">總計</p>
           <p class="text-xl font-bold text-colorBlack md:text-2xl">NT${{ totalPrice }}</p>
         </div>
-        <div v-if="productData.length > 0">
-          <div class="flex items-center justify-between border-t border-colorGray p-4">
-            <p class="text-sm text-colorBlack md:text-base">運送方式</p>
-            <p class="text-sm text-colorBlack md:text-base">常溫宅配 (免運費)</p>
-          </div>
-        </div>
       </div>
       <div v-if="productData && productData.length > 0" class="mt-8 flex justify-end">
-        <NuxtLink to="/checkout">
-          <UiBaseButton text="前往結帳" />
-        </NuxtLink>
+        <UiBaseButton text="前往結帳" @click="goCheckout" />
       </div>
     </main>
     <UiPageSpinner v-if="isLoading" />
@@ -66,6 +65,7 @@
 </template>
 <script setup lang="ts">
 import { useCartStore } from '@/store/cart'
+import { useUserStore } from '@/store/user'
 
 usePageSeo({
   title: '購物車'
@@ -76,11 +76,12 @@ const columns = [
   { key: 'name', label: '商品' },
   { key: 'price', label: '價格' },
   { key: 'quantity', label: '數量' },
-  { key: 'total', label: '總計' },
+  { key: 'total', label: '小計' },
   { key: 'delete' }
 ]
 
 const cartStore = useCartStore()
+const userStore = useUserStore()
 const { showRemoveCartSuccess } = useAppToast()
 
 const { isLoading, productData, totalPrice } = useGetCart()
@@ -92,5 +93,13 @@ const handleUpdateQuantity = (id: string, name: string, quantity: number) => {
 const handleRemoveItem = (id: string, name: string) => {
   cartStore.removeItem(id)
   showRemoveCartSuccess(name)
+}
+
+const goCheckout = () => {
+  if (!userStore.user) {
+    navigateTo('/my-account')
+  } else {
+    navigateTo('/checkout')
+  }
 }
 </script>
