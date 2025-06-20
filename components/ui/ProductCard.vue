@@ -37,13 +37,13 @@ const props = defineProps<{
 }>()
 
 const cartStore = useCartStore()
-const { addProductSuccess } = useAppToast()
+const { showAddToCartSuccess } = useAppToast()
 
 const addToCart = () => {
   cartStore.addItem({
     id: props.product.id,
     quantity: 1
   })
-  addProductSuccess(props.product.name)
+  showAddToCartSuccess(props.product.name)
 }
 </script>

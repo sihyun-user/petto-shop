@@ -7,8 +7,8 @@
         class="mx-auto max-w-4xl space-y-8"
         :state="state"
         :schema="schema"
-        @error="onError"
-        @submit="onSubmit"
+        @error="handleError"
+        @submit="handleSubmit"
       >
         <div class="w-full space-y-4 rounded-lg border border-colorGray bg-colorGrayLight p-4">
           <h4 class="-mx-4 border-b border-colorGray px-4 pb-2 text-colorBlack">帳單資訊</h4>
@@ -168,7 +168,7 @@ watch(
 
 const formRef = ref<HTMLFormElement | null>(null)
 
-const onError = (event: FormErrorEvent) => {
+const handleError = (event: FormErrorEvent) => {
   const element = document.getElementById(event.errors[0].id)
 
   element?.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -177,5 +177,5 @@ const onError = (event: FormErrorEvent) => {
   }, 300)
 }
 
-const onSubmit = () => {}
+const handleSubmit = () => {}
 </script>

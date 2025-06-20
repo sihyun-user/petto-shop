@@ -5,7 +5,7 @@ export const useCartStore = defineStore(
   'cart',
   () => {
     const cartItems = ref<CartItem[]>([])
-    const { removeProductSuccess } = useAppToast()
+    const { showRemoveCartSuccess } = useAppToast()
 
     const cartAmount = computed(() => {
       return cartItems.value.reduce((amount, item) => amount + item.quantity, 0)
@@ -39,7 +39,7 @@ export const useCartStore = defineStore(
     }) => {
       if (quantity === 0) {
         removeItem(id)
-        removeProductSuccess(name)
+        showRemoveCartSuccess(name)
       } else {
         const item = cartItems.value.find((item) => item.id === id)
         if (item) item.quantity = quantity

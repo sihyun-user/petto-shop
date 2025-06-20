@@ -81,7 +81,9 @@ const columns = [
 ]
 
 const cartStore = useCartStore()
-const { removeProductSuccess } = useAppToast()
+const { showRemoveCartSuccess } = useAppToast()
+
+const { isLoading, productData, totalPrice } = useGetCart()
 
 const handleUpdateQuantity = (id: string, name: string, quantity: number) => {
   cartStore.setUpdateQuantity({ id, name, quantity })
@@ -89,8 +91,6 @@ const handleUpdateQuantity = (id: string, name: string, quantity: number) => {
 
 const handleRemoveItem = (id: string, name: string) => {
   cartStore.removeItem(id)
-  removeProductSuccess(name)
+  showRemoveCartSuccess(name)
 }
-
-const { isLoading, productData, totalPrice } = useGetCart()
 </script>

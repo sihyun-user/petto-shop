@@ -58,14 +58,18 @@ import { z } from 'zod'
 usePageSeo({
   title: '聯絡我們'
 })
+
 const { showSuccess, showError } = useAppToast()
 
-const state = ref({
+const ininialState = {
   subject: '',
   name: '',
   email: '',
   phone: '',
   message: ''
+}
+const state = ref({
+  ...ininialState
 })
 const isLoading = ref(false)
 
@@ -98,6 +102,7 @@ const submit = () => {
     return
   }
 
+  Object.assign(state.value, ininialState)
   showSuccess('感謝您的聯絡，我們會盡快回覆您！')
 
   isLoading.value = false

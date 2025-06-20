@@ -19,7 +19,7 @@ export const useAppToast = () => {
     })
   }
 
-  const addProductSuccess = (name: string) => {
+  const showAddToCartSuccess = (name: string) => {
     toast.add({
       title: '已加入購物車',
       description: `商品 ${name} 已成功加入購物車！`,
@@ -28,7 +28,7 @@ export const useAppToast = () => {
     })
   }
 
-  const removeProductSuccess = (name: string) => {
+  const showRemoveCartSuccess = (name: string) => {
     toast.add({
       title: '已移除商品',
       description: `商品 ${name} 已成功從購物車中移除！`,
@@ -40,7 +40,7 @@ export const useAppToast = () => {
   return {
     showSuccess,
     showError,
-    addProductSuccess,
-    removeProductSuccess
+    showAddToCartSuccess,
+    showRemoveCartSuccess
   }
 }

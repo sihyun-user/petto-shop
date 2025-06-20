@@ -86,22 +86,32 @@
 import { z } from 'zod'
 import { getErrorMessage } from '@/utils/error'
 
+definePageMeta({
+  middleware: ['guest-only']
+})
+
 usePageSeo({
   title: '我的帳號'
 })
-const { showSuccess, showError } = useAppToast()
 
 const supabase = useSupabaseClient()
+const { showSuccess, showError } = useAppToast()
 
-const isLoginLoading = ref(false)
-const loginState = ref({
+// login
+const initialLoginState = {
   email: '',
   password: ''
+}
+const isLoginLoading = ref(false)
+const loginState = ref({
+  ...initialLoginState
 })
+
 const loginSchema = z.object({
   email: z.string().email('請輸入有效的電子信箱'),
   password: z.string().min(6, '密碼至少需要6個字元')
 })
+
 const loginSubmit = async () => {
   isLoginLoading.value = true
 
@@ -117,23 +127,27 @@ const loginSubmit = async () => {
     }
 
     showSuccess('登入成功！歡迎回來')
-    loginState.value = { email: '', password: '' }
 
     await getUserProfile()
     navigateTo('/')
   } catch (error) {
-    showError('登入時發生錯誤，請稍後再試')
+    showError('登入發生錯誤，請稍後再試')
   } finally {
     isLoginLoading.value = false
   }
 }
 
-const isRegisterLoading = ref(false)
-const registerState = ref({
+// register
+const initialRegisterState = {
   email: '',
   password: '',
   confirmPassword: ''
+}
+const isRegisterLoading = ref(false)
+const registerState = ref({
+  ...initialRegisterState
 })
+
 const registerSchema = z
   .object({
     email: z.string().email('請輸入有效的電子信箱'),
@@ -144,6 +158,7 @@ const registerSchema = z
     message: '兩次輸入的密碼不一致',
     path: ['confirmPassword']
   })
+
 const registerSubmit = async () => {
   isRegisterLoading.value = true
 
@@ -157,14 +172,17 @@ const registerSubmit = async () => {
       showError(errorMessage)
     } else {
       showSuccess('註冊成功！請重新登入')
-      registerState.value.email = ''
-      registerState.value.password = ''
-      registerState.value.confirmPassword = ''
+      resetForm()
     }
   } catch (error) {
     showError('註冊時發生錯誤，請稍後再試')
   } finally {
     isRegisterLoading.value = false
   }
+}
+
+const resetForm = () => {
+  Object.assign(loginState.value, initialLoginState)
+  Object.assign(registerState.value, initialRegisterState)
 }
 </script>

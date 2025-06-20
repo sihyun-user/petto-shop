@@ -145,7 +145,7 @@ watch(
   { immediate: true }
 )
 const cartStore = useCartStore()
-const { addProductSuccess } = useAppToast()
+const { showAddToCartSuccess } = useAppToast()
 
 const addToCart = (product: Product) => {
   if (quantity.value > 0) {
@@ -153,7 +153,7 @@ const addToCart = (product: Product) => {
       id: product.id,
       quantity: quantity.value
     })
-    addProductSuccess(product.name)
+    showAddToCartSuccess(product.name)
   }
 }
 </script>

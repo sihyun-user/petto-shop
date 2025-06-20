@@ -90,10 +90,7 @@ const { data: articles } = await useAsyncData(
       .select('*')
       .order('created_at', { ascending: false })
 
-    if (error) {
-      showError('無法載入文章列表，請稍後再試')
-      return []
-    }
+    if (error) return []
 
     return data
   },

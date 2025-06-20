@@ -1,5 +1,8 @@
+import { useUserStore } from '@/store/user'
+
 export const getUserProfile = async () => {
   const supabase = useSupabaseClient()
+  const userStore = useUserStore()
 
   const { showError } = useAppToast()
 
@@ -15,6 +18,8 @@ export const getUserProfile = async () => {
       .maybeSingle()
 
     if (profileError || !profile) throw profileError
+
+    userStore.setUser(profile)
 
     return data
   } catch (error) {
