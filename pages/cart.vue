@@ -2,7 +2,7 @@
   <section class="container min-h-screen py-[40px]">
     <main v-if="productData" class="mx-auto max-w-3xl">
       <h3 class="mb-4 text-colorBlack">購物車</h3>
-      <div class="rounded-lg rounded-b-none border border-b-0 border-colorGray bg-colorGrayLight">
+      <div class="rounded-lg border border-colorGray bg-colorGrayLight">
         <UTable
           row-key="id"
           :columns="columns"
@@ -13,7 +13,10 @@
           }"
           :ui="{
             th: { color: 'text-colorBlack', base: 'border-b border-colorGray' },
-            td: { color: 'text-colorBlack', base: 'border-b border-colorGray' }
+            td: { color: 'text-colorBlack', base: 'border-b border-colorGray' },
+            emptyState: {
+              icon: 'w-10 h-10 text-colorGrayDark'
+            }
           }"
         >
           <template #image-data="{ row }">
@@ -42,18 +45,15 @@
             />
           </template>
         </UTable>
-      </div>
-      <div class="rounded-lg rounded-t-none border border-t-0 border-colorGray bg-colorGrayLight">
-        <div
-          v-if="productData.length > 0"
-          class="flex items-center justify-between border-b border-colorGray p-4"
-        >
-          <p class="text-sm text-colorBlack md:text-base">運送方式</p>
-          <p class="text-sm text-colorBlack md:text-base">常溫宅配 (免運費)</p>
-        </div>
-        <div class="flex items-center justify-between p-4">
-          <p class="text-sm text-colorBlack md:text-base">總計</p>
-          <p class="text-xl font-bold text-colorBlack md:text-2xl">NT${{ totalPrice }}</p>
+        <div v-if="productData.length > 0">
+          <div class="flex items-center justify-between border-b border-colorGray p-4">
+            <p class="text-sm text-colorBlack md:text-base">運送方式</p>
+            <p class="text-sm text-colorBlack md:text-base">常溫宅配 (免運費)</p>
+          </div>
+          <div class="flex items-center justify-between p-4">
+            <p class="text-sm text-colorBlack md:text-base">總計</p>
+            <p class="text-xl font-bold text-colorBlack md:text-2xl">NT${{ totalPrice }}</p>
+          </div>
         </div>
       </div>
       <div v-if="productData && productData.length > 0" class="mt-8 flex justify-end">

@@ -4,12 +4,15 @@
     :columns="columns"
     :rows="orderData"
     :empty-state="{
-      icon: 'i-heroicons-shopping-cart-solid',
+      icon: 'i-heroicons:clipboard-document-list-20-solid',
       label: '您目前沒有任何訂單。'
     }"
     :ui="{
       th: { color: 'text-colorBlack', base: 'border-b border-colorGray' },
-      td: { color: 'text-colorBlack', base: 'border-b border-colorGray' }
+      td: { color: 'text-colorBlack', base: 'border-b border-colorGray' },
+      emptyState: {
+        icon: 'w-10 h-10 text-colorGrayDark'
+      }
     }"
   >
     <template #status-data="{ row }">
@@ -37,30 +40,5 @@ const columns = [
   { key: 'action', label: '' }
 ]
 
-const orderData = ref([
-  {
-    id: 1,
-    order_id: '20250609140201413',
-    created_at: '2025-06-09',
-    total: 1500,
-    status: '已完成',
-    finish_time: '2025-06-09'
-  },
-  {
-    id: 2,
-    order_id: '20250609140201414',
-    created_at: '2025-06-10',
-    total: 2000,
-    status: '待付款',
-    finish_time: ''
-  },
-  {
-    id: 3,
-    order_id: '20250609140201415',
-    created_at: '2025-06-11',
-    total: 3000,
-    status: '已取消',
-    finish_time: ''
-  }
-])
+const orderData = ref([])
 </script>

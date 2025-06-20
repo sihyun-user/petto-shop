@@ -68,7 +68,10 @@
             }"
             :ui="{
               th: { color: 'text-colorBlack', base: 'border-b border-colorGray' },
-              td: { color: 'text-colorBlack', base: 'border-b border-colorGray' }
+              td: { color: 'text-colorBlack', base: 'border-b border-colorGray' },
+              emptyState: {
+                icon: 'w-10 h-10 text-colorGrayDark'
+              }
             }"
           >
             <template #image-data="{ row }">

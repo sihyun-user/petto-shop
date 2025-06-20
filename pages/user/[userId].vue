@@ -47,7 +47,7 @@ const items = [
   {
     key: 'orders',
     label: '我的訂單',
-    icon: 'i-heroicons:clipboard-document-check',
+    icon: 'heroicons:clipboard-document-list-20-solid',
     content: '我的訂單'
   }
 ]
