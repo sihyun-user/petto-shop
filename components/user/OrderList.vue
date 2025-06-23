@@ -29,6 +29,13 @@
         >查看訂單</UButton
       >
     </template>
+
+    <template #empty-state>
+      <div class="flex w-full flex-col items-center justify-center py-10 text-colorGrayDark">
+        <UIcon name="i-heroicons:clipboard-document-list-20-solid" class="mb-2 h-10 w-10" />
+        <p class="text-sm">您目前沒有任何訂單。</p>
+      </div>
+    </template>
   </UTable>
 </template>
 <script setup lang="ts">

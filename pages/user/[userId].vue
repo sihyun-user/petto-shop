@@ -37,6 +37,10 @@ definePageMeta({
   middleware: ['auth']
 })
 
+usePageSeo({
+  title: '我的帳戶'
+})
+
 const items = [
   {
     key: 'profile',

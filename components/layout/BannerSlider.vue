@@ -79,10 +79,11 @@ const banners = [
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 120px;
+  padding-top: 40px;
   padding-bottom: 0;
 
   @media (min-width: 768px) {
+    padding-top: 80px;
     padding-bottom: 100px;
   }
 }

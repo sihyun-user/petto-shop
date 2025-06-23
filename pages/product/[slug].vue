@@ -2,7 +2,7 @@
   <section v-if="product" class="container min-h-screen py-[40px]">
     <div class="mb-[60px] flex flex-col gap-5 md:flex-row md:gap-12">
       <div class="flex flex-shrink-0 flex-col">
-        <div class="h-[400px] w-[400px] overflow-hidden">
+        <div class="h-[300px] w-full overflow-hidden md:h-[400px] md:w-[400px]">
           <ZoomImg
             :src="imageZoom"
             zoom-type="drag"

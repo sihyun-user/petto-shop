@@ -32,10 +32,6 @@ import { z } from 'zod'
 import { useUserStore } from '@/store/user'
 import type { User } from '@/types'
 
-usePageSeo({
-  title: '我的帳戶'
-})
-
 const supabase = useSupabaseClient()
 const userStore = useUserStore()
 const { user } = storeToRefs(userStore)
