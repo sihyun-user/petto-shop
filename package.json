@@ -21,6 +21,7 @@
     "@nuxt/ui": "^2.22.0",
     "@nuxtjs/supabase": "^1.5.1",
     "date-fns": "^4.1.0",
+    "ecpay_aio_nodejs": "^1.2.2",
     "nuxt": "^3.17.3",
     "pinia-plugin-persistedstate": "^4.3.0",
     "swiper": "^11.2.7",

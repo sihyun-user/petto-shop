@@ -7,8 +7,7 @@
         class="mx-auto max-w-4xl space-y-8"
         :state="state"
         :schema="schema"
-        @error="handleError"
-        @submit="handleSubmit"
+        @submit="handlePayment"
       >
         <div class="w-full space-y-4 rounded-lg border border-colorGray bg-colorGrayLight p-4">
           <h4 class="-mx-4 border-b border-colorGray px-4 pb-2 text-colorBlack">帳單資訊</h4>
@@ -112,12 +111,13 @@
 </template>
 <script setup lang="ts">
 import { z } from 'zod'
-import type { FormErrorEvent } from '#ui/types'
 import { twCities } from '@/utils/twCities'
 
 usePageSeo({
   title: '結帳'
 })
+
+const { showError } = useAppToast()
 
 const columns = [
   { key: 'image', label: '圖片' },
@@ -128,13 +128,13 @@ const columns = [
 ]
 
 const state = ref({
-  lastName: '',
-  firstName: '',
-  address: '',
+  lastName: 'alex',
+  firstName: 'chen',
+  address: 'test address',
   city: '臺北市',
-  area: '',
-  email: '',
-  phone: ''
+  area: '大同區',
+  email: 'test@gmail.com',
+  phone: '0912345678'
 })
 
 const schema = z.object({
@@ -144,10 +144,7 @@ const schema = z.object({
   email: z.string().email('請輸入有效的電子信箱'),
   city: z.string().min(1, '縣/市為必填項目'),
   area: z.string().min(1, '鄉鎮市為必填項目'),
-  phone: z
-    .string()
-    .min(10, '電話號碼為必填項目')
-    .regex(/^[0-9+\-\s]*$/, '電話號碼格式錯誤')
+  phone: z.string().regex(/^[0-9+\-\s]{10}$/, '電話號碼格式錯誤')
 })
 
 const isLoading = ref(false)
@@ -171,14 +168,36 @@ watch(
 
 const formRef = ref<HTMLFormElement | null>(null)
 
-const handleError = (event: FormErrorEvent) => {
-  const element = document.getElementById(event.errors[0].id)
+const handlePayment = async () => {
+  isLoading.value = true
+  try {
+    const res = await $fetch('/api/ecpay/create', {
+      method: 'POST',
+      body: {
+        amount: totalPrice.value,
+        description: '方案訂閱付款'
+      }
+    })
 
-  element?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-  setTimeout(() => {
-    element?.focus()
-  }, 300)
+    if (res.success) {
+      const wrapper = document.createElement('div')
+      wrapper.style.display = 'none'
+      wrapper.innerHTML = res.formHtml
+      document.body.appendChild(wrapper)
+
+      const form = wrapper.querySelector('form')
+      if (form) {
+        form.submit()
+      } else {
+        showError('付款表單產生失敗')
+      }
+    } else {
+      showError(res.message || '建立付款失敗，請稍後再試。')
+    }
+  } catch (err) {
+    showError('建立付款失敗，請稍後再試。')
+  } finally {
+    isLoading.value = false
+  }
 }
-
-const handleSubmit = () => {}
 </script>

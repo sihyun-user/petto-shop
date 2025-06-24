@@ -6,7 +6,7 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "strict": true,
-    "types": ["@types/node"]
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
-  "include": ["env.d.ts", ".nuxt/nuxt.d.ts", "**/*"]
+  "include": ["env.d.ts", ".nuxt/nuxt.d.ts", "types/**/*.d.ts", "**/*"]
 }
