@@ -1,6 +1,8 @@
 // @ts-ignore
 import ECPayPayment from 'ecpay_aio_nodejs'
 import { format } from 'date-fns'
+import { getSupabase } from '@/services/supabase'
+import { useUserStore } from '@/store/user'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -23,6 +25,38 @@ export default defineEventHandler(async (event) => {
 
     const MerchantTradeNo = `nwv${format(new Date(), 'yyyyMMddHHmmssSSS')}`
 
+    // 先寫入資料庫：UNPAID 狀態
+    const userStore = useUserStore()
+    const userId = userStore.user?.id
+
+    if (!userId) {
+      return {
+        success: false,
+        message: '使用者未登入，請先登入後再試'
+      }
+    }
+
+    const supabase = getSupabase()
+    const { error: insertError } = await supabase.from('orders').insert([
+      {
+        trade_no: MerchantTradeNo,
+        amount,
+        status: 'UNPAID',
+        payment_method: 'Credit',
+        paid_at: null,
+        user_id: userId
+      }
+    ])
+
+    if (insertError) {
+      console.log('insertError', insertError)
+      return {
+        success: false,
+        message: '建立訂單失敗，請稍後再試'
+      }
+    }
+
+    // 建立綠界付款參數
     const param = {
       MerchantID,
       MerchantTradeNo,
@@ -44,7 +78,7 @@ export default defineEventHandler(async (event) => {
       formHtml: html
     }
   } catch (error) {
-    console.error('ecpay create error:', error)
+    console.error('產生付款表單失敗:', error)
     return {
       success: false,
       message: '產生付款表單失敗，請稍後再試。'
