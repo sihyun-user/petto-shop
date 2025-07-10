@@ -31,7 +31,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { format, parseISO } from 'date-fns'
+import { format } from 'date-fns'
 import type { Article } from '@/types'
 
 const props = defineProps<{
@@ -39,7 +39,9 @@ const props = defineProps<{
 }>()
 
 const formattedDate = computed(() => {
-  if (!props.article.created_at) return null
-  return format(parseISO(props.article.created_at), 'yyyy.MM.dd')
+  const titme = props.article.created_at
+
+  if (!titme) return null
+  return format(titme, 'yyyy.MM.dd')
 })
 </script>

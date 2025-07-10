@@ -1,5 +1,5 @@
 <template>
-  <section class="container py-[40px]">
+  <section class="container pb-[125px] pt-[40px]">
     <main class="mx-auto flex max-w-4xl flex-col justify-between gap-8 md:flex-row">
       <div class="flex-1">
         <h2 class="mb-3 text-colorBlack">登入</h2>
@@ -87,7 +87,7 @@ import { z } from 'zod'
 import { getErrorMessage } from '@/utils/error'
 
 definePageMeta({
-  middleware: ['guest-only']
+  middleware: ['guest']
 })
 
 usePageSeo({
@@ -122,7 +122,7 @@ const loginSubmit = async () => {
 
     if (error) {
       const errorMessage = getErrorMessage(error)
-      showError(errorMessage)
+      showError(`登入失敗，${errorMessage}`)
       return
     }
 
@@ -169,7 +169,7 @@ const registerSubmit = async () => {
 
     if (error) {
       const errorMessage = getErrorMessage(error)
-      showError(errorMessage)
+      showError(`註冊失敗，${errorMessage}`)
     } else {
       showSuccess('註冊成功！請重新登入')
       resetForm()

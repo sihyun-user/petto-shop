@@ -1,5 +1,5 @@
 <template>
-  <section class="container min-h-screen py-[40px]">
+  <section class="container min-h-fit py-[40px]">
     <main v-if="productData" class="mx-auto max-w-3xl">
       <h3 class="mb-4 text-colorBlack">結帳</h3>
       <UForm
@@ -112,6 +112,7 @@
 <script setup lang="ts">
 import { z } from 'zod'
 import { twCities } from '@/utils/twCities'
+import { useUserStore } from '@/store/user'
 
 usePageSeo({
   title: '結帳'
@@ -148,6 +149,7 @@ const schema = z.object({
 })
 
 const isLoading = ref(false)
+const userStore = useUserStore()
 
 const { isLoading: isProductLoading, productData, totalPrice } = useGetCart()
 
@@ -168,14 +170,21 @@ watch(
 
 const formRef = ref<HTMLFormElement | null>(null)
 
+type ECPayResponse = { success: true; formHtml: string } | { success: false; message: string }
+
 const handlePayment = async () => {
   isLoading.value = true
   try {
-    const res = await $fetch('/api/ecpay/create', {
+    const res = await $fetch<ECPayResponse>('/api/ecpay/create', {
       method: 'POST',
       body: {
+        userId: userStore?.user?.id,
         amount: totalPrice.value,
-        description: '方案訂閱付款'
+        description: '方案訂閱付款',
+        name: `${state.value.lastName} ${state.value.firstName}`,
+        email: state.value.email,
+        phone: state.value.phone,
+        address: `${state.value.city}${state.value.area}${state.value.address}`
       }
     })
 

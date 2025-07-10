@@ -13,9 +13,13 @@
 </template>
 
 <script setup lang="ts">
+import { useUserStore } from '@/store/user'
+
 const colorMode = useColorMode()
 
 onMounted(() => {
   colorMode.preference = 'light'
+  const userStore = useUserStore()
+  userStore.verifySession()
 })
 </script>

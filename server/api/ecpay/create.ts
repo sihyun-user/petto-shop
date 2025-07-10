@@ -1,13 +1,11 @@
-// @ts-ignore
 import ECPayPayment from 'ecpay_aio_nodejs'
 import { format } from 'date-fns'
-import { getSupabase } from '@/services/supabase'
-import { useUserStore } from '@/store/user'
+import { getSupabase } from '@/utils/supabase'
 
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event)
-    const { amount, description } = body
+    const { amount, description, userId, name, address, phone, email } = body
     const { MerchantID, HashKey, HashIV } = process.env
 
     if (!MerchantID || !HashKey || !HashIV) {
@@ -23,11 +21,8 @@ export default defineEventHandler(async (event) => {
 
     const create = new ECPayPayment(options)
 
+    // 生成訂單編號
     const MerchantTradeNo = `nwv${format(new Date(), 'yyyyMMddHHmmssSSS')}`
-
-    // 先寫入資料庫：UNPAID 狀態
-    const userStore = useUserStore()
-    const userId = userStore.user?.id
 
     if (!userId) {
       return {
@@ -36,20 +31,22 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    const supabase = getSupabase()
+    const supabase = getSupabase(event)
     const { error: insertError } = await supabase.from('orders').insert([
       {
         trade_no: MerchantTradeNo,
-        amount,
-        status: 'UNPAID',
+        status: 0,
         payment_method: 'Credit',
-        paid_at: null,
-        user_id: userId
+        user_id: userId,
+        amount,
+        name,
+        address,
+        phone,
+        email
       }
     ])
 
     if (insertError) {
-      console.log('insertError', insertError)
       return {
         success: false,
         message: '建立訂單失敗，請稍後再試'
@@ -57,6 +54,9 @@ export default defineEventHandler(async (event) => {
     }
 
     // 建立綠界付款參數
+    const config = useRuntimeConfig()
+    const baseUrl = config.public.ngrokUrl
+
     const param = {
       MerchantID,
       MerchantTradeNo,
@@ -66,8 +66,8 @@ export default defineEventHandler(async (event) => {
       TradeDesc: description,
       ItemName: '測試商品',
       ChoosePayment: 'Credit',
-      ReturnURL: 'http://localhost:8080/api/ecpay/return',
-      ClientBackURL: 'http://localhost:8080/checkout/order-success',
+      ReturnURL: `${baseUrl}/api/ecpay/return`,
+      ClientBackURL: `${baseUrl}/checkout/order-result?no=${MerchantTradeNo}`,
       EncryptType: 1
     }
 
@@ -78,7 +78,6 @@ export default defineEventHandler(async (event) => {
       formHtml: html
     }
   } catch (error) {
-    console.error('產生付款表單失敗:', error)
     return {
       success: false,
       message: '產生付款表單失敗，請稍後再試。'

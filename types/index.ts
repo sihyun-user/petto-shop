@@ -20,7 +20,7 @@ export interface Article {
   description: string
   content: string
   image: string
-  created_at: string
+  created_at: Date
 }
 
 export interface CartItem {
@@ -34,4 +34,18 @@ export interface User {
   email: string
   phone: string
   role?: 'user' | 'admin'
+}
+
+export interface Order {
+  id: string
+  trade_no: string
+  amount: number
+  status: number // 0: 未付款, 1: 已付款
+  payment_method: string
+  user_id: string
+  created_at: Date
+  name: string
+  phone: string
+  address: string
+  email: string
 }
