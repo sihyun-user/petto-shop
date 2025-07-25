@@ -52,9 +52,10 @@ const items = [
 const selectedIndex = ref(0)
 
 const updateSelectedIndex = (path: string) => {
-  const index = items.findIndex((i) => path.endsWith(i.path))
-  selectedIndex.value = index === -1 ? 0 : index
+  selectedIndex.value = path.includes('/orders') ? 1 : 0
+  console.log('Selected Index Updated:', selectedIndex.value)
 }
+
 const onChange = (index: number) => {
   selectedIndex.value = index
   const userId = route.params.userId

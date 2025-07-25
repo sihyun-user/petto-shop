@@ -42,6 +42,6 @@ const formattedDate = computed(() => {
   const titme = props.article.created_at
 
   if (!titme) return null
-  return format(titme, 'yyyy.MM.dd')
+  return format(titme, 'yyyy/MM/dd')
 })
 </script>

@@ -24,8 +24,8 @@
       </div>
       <div class="hidden flex-col space-y-4 text-center md:flex md:w-2/12">
         <h4 class="underline underline-offset-8">探索我們</h4>
-        <NuxtLink to="/" class="hover:text-colorSecondary">最新消息</NuxtLink>
-        <NuxtLink to="/" class="hover:text-colorSecondary">關於我們</NuxtLink>
+        <!-- <NuxtLink to="/" class="hover:text-colorSecondary">最新消息</NuxtLink> -->
+        <NuxtLink to="/about" class="hover:text-colorSecondary">關於我們</NuxtLink>
         <NuxtLink to="/contact" class="hover:text-colorSecondary">聯絡我們</NuxtLink>
       </div>
       <div class="hidden flex-col space-y-4 text-center md:flex md:w-2/12">

@@ -75,7 +75,7 @@
         <div class="relative h-0 pb-[56%]">
           <iframe
             class="absolute left-0 top-0 h-full w-full"
-            src="https://www.youtube.com/embed/F3zw1Gvn4Mk?autoplay=1"
+            src="https://www.youtube.com/embed/c2OTHeCKsBE?si=29a8SJ8oYBYw6DIx"
             frameborder="0"
             allow="autoplay; encrypted-media"
             allowfullscreen

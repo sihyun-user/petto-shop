@@ -40,7 +40,7 @@ export interface Order {
   id: string
   trade_no: string
   amount: number
-  status: number // 0: 未付款, 1: 已付款
+  status: string // 'paid' | 'failed'
   payment_method: string
   user_id: string
   created_at: Date

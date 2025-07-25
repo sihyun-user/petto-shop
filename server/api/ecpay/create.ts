@@ -55,7 +55,7 @@ export default defineEventHandler(async (event) => {
 
     // 建立綠界付款參數
     const config = useRuntimeConfig()
-    const baseUrl = config.public.ngrokUrl
+    const baseUrl = config.public.returnUrl
 
     const param = {
       MerchantID,

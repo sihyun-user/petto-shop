@@ -64,7 +64,7 @@
     <div>
       <ul class="flex">
         <li
-          v-for="tab in ['introduction', 'specification']"
+          v-for="tab in tabList"
           :key="tab"
           :class="[
             'cursor-pointer px-6 py-4',
@@ -104,7 +104,8 @@ const productSlug = route.params.slug as string | undefined
 
 const quantity = ref(0)
 const imageZoom = ref<string | undefined>(undefined)
-const activeTab = ref<'introduction' | 'specification'>('introduction')
+const tabList = ['introduction', 'specification'] as const
+const activeTab = ref('introduction')
 const specification = ref<Record<string, any>>({})
 
 const { data: product } = await useAsyncData<Product | null>('product', async () => {

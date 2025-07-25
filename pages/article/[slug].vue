@@ -10,7 +10,7 @@
   </section>
 </template>
 <script setup lang="ts">
-import { format, parseISO } from 'date-fns'
+import { format } from 'date-fns'
 import type { Article } from '@/types'
 
 const route = useRoute()
@@ -36,6 +36,6 @@ const { data: article } = await useAsyncData<Article | null>('article', async ()
 
 const formattedDate = computed(() => {
   if (!article.value) return null
-  return format(parseISO(article.value.created_at), 'yyyy.MM.dd')
+  return format(article.value.created_at, 'yyyy/MM/dd')
 })
 </script>

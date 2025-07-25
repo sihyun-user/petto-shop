@@ -1,7 +1,7 @@
 <template>
   <section class="container min-h-screen py-[40px]">
     <main v-if="order" class="mx-auto max-w-3xl">
-      <template v-if="order.status === 1">
+      <template v-if="order.status === 'paid'">
         <h2 class="flex items-center justify-center gap-2 font-bold text-colorBlack">
           <UIcon name="heroicons:check-circle-16-solid" class="text-green-500" />
           <span>付款成功</span>
@@ -10,7 +10,7 @@
           感謝您的訂購，我們已收到您的付款，訂單正在處理中，請您稍候。
         </p>
       </template>
-      <template v-if="order.status === 0">
+      <template v-if="order.status === 'failed'">
         <h2 class="flex items-center justify-center gap-2 font-bold text-colorBlack">
           <UIcon name="heroicons:x-circle-16-solid" class="text-red-500" />
           <span>付款失敗</span>
@@ -31,7 +31,7 @@
         <div class="flex items-center justify-between border-t border-colorGray p-4">
           <p class="text-sm text-colorBlack md:text-base">訂單狀態</p>
           <p class="text-sm font-semibold text-colorBlack md:text-base">
-            {{ order.status === 1 ? '已付款' : '付款失敗' }}
+            {{ order.status === 'paid' ? '已付款' : '付款失敗' }}
           </p>
         </div>
         <div class="flex items-center justify-between border-t border-colorGray p-4">
@@ -76,7 +76,7 @@ import type { Order } from '@/types'
 import { useUserStore } from '@/store/user'
 
 const route = useRoute()
-const tradeNo = route.query.no as string
+const { no: tradeNo } = route.query
 
 const supabase = useSupabaseClient()
 const userStore = useUserStore()

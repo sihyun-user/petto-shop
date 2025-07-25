@@ -2,7 +2,7 @@
   <UTable
     row-key="id"
     :columns="columns"
-    :rows="orderData"
+    :rows="orderData || []"
     :empty-state="{
       icon: 'i-heroicons:clipboard-document-list-20-solid',
       label: '您目前沒有任何訂單。'
@@ -16,18 +16,26 @@
     }"
   >
     <template #status-data="{ row }">
-      <p>{{ row.status }}</p>
+      <p>{{ row.status === 'paid' ? '已付款' : '付款失敗' }}</p>
       <time>{{ row.finish_time }}</time>
     </template>
 
+    <template #created_at-data="{ row }">
+      <time>{{ format(row.created_at, 'yyyy/MM/dd HH:mm:ss') }}</time>
+    </template>
+
     <template #action-data="{ row }">
-      <UButton
-        :to="`/user/order/${row.id}`"
-        variant="ghost"
-        size="sm"
-        class="font-mediun bg-colorSecondary text-white hover:bg-colorSecondaryDark"
-        >查看訂單</UButton
+      <NuxtLink
+        :to="`/checkout/order-result?no=${row.trade_no}`"
+        class="flex items-center justify-center"
       >
+        <UButton
+          variant="ghost"
+          size="sm"
+          class="bg-colorSecondary font-medium text-white hover:bg-colorSecondaryDark"
+          >查看訂單</UButton
+        >
+      </NuxtLink>
     </template>
 
     <template #empty-state>
@@ -39,13 +47,26 @@
   </UTable>
 </template>
 <script setup lang="ts">
+import { format } from 'date-fns'
+import type { Order } from '@/types'
+import { useUserStore } from '@/store/user'
+
 const columns = [
-  { key: 'order_id', label: '訂單號碼' },
+  { key: 'trade_no', label: '訂單號碼' },
   { key: 'created_at', label: '訂單日期' },
-  { key: 'total', label: '合計' },
-  { key: 'status', label: '訂單狀態' },
+  { key: 'amount', label: '合計' },
+  { key: 'status', label: '付款狀態' },
   { key: 'action', label: '' }
 ]
 
-const orderData = ref([])
+const supabase = useSupabaseClient()
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
+
+const { data: orderData } = await useAsyncData<Order[]>('orders', async () => {
+  if (!user.value) return []
+  const { data, error } = await supabase.from('orders').select('*').eq('user_id', user.value.id)
+
+  return error || !data ? [] : data
+})
 </script>
