@@ -1,4 +1,5 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+/// <reference types="nuxt-simple-sitemap" />
+
 export default defineNuxtConfig({
   css: ['@/assets/css/tailwind.css', '@/assets/css/styles.css', '@/assets/css/vue3-zoomer.css'],
   compatibilityDate: '2024-11-01',
@@ -8,17 +9,15 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase',
     '@nuxt/image',
     '@pinia/nuxt',
-    'pinia-plugin-persistedstate/nuxt'
+    'pinia-plugin-persistedstate/nuxt',
+    'nuxt-simple-sitemap'
   ],
   supabase: {
     redirect: false
   },
   vite: {
     server: {
-      allowedHosts: ['e4fd73b94827.ngrok-free.app']
-    },
-    optimizeDeps: {
-      exclude: ['estree-walker']
+      // allowedHosts: ['e4fd73b94827.ngrok-free.app']
     },
     ssr: {
       noExternal: ['vue3-zoomer']
@@ -31,6 +30,16 @@ export default defineNuxtConfig({
       supabaseKey: process.env.SUPABASE_KEY || '', // 前端用的匿名 key
       returnUrl: process.env.RETURN_URL || '',
       baseUrl: process.env.NUXT_PUBLIC_URL || ''
+    }
+  },
+  site: {
+    url: process.env.NUXT_PUBLIC_URL
+  },
+  sitemap: {
+    exclude: ['/my-account', '/user/**', '/cart', '/checkout/**'],
+    defaults: {
+      changefreq: 'weekly',
+      priority: 0.8
     }
   }
 })

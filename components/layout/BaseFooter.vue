@@ -9,31 +9,30 @@
           </NuxtLink>
           <p class="mb-3 text-2xl font-semibold">為毛孩選對每一天</p>
           <div class="flex items-center space-x-2">
-            <UIcon name="fa6-solid:location-dot" class="h-3 w-3" />
+            <UIcon name="i-heroicons:globe-asia-australia-20-solid" class="h-3 w-3" />
             <p class="text-sm">台北市信義區毛孩街 88 號</p>
           </div>
           <a href="callto:1234567890123" class="my-2 flex items-center space-x-2">
-            <UIcon name="i-heroicons:phone" class="h-3 w-3" />
+            <UIcon name="heroicons:phone-20-solid" class="h-3 w-3" />
             <p class="text-sm">02-1234-5678</p>
           </a>
           <a href="mailto:petto@gmail.com" class="flex items-center space-x-2">
-            <UIcon name="i-fa6-solid:envelope" class="h-3 w-3" />
+            <UIcon name="i-heroicons:envelope-20-solid" class="h-3 w-3" />
             <p class="text-sm">petto@gmail.com</p>
           </a>
         </div>
       </div>
       <div class="hidden flex-col space-y-4 text-center md:flex md:w-2/12">
         <h4 class="underline underline-offset-8">探索我們</h4>
-        <!-- <NuxtLink to="/" class="hover:text-colorSecondary">最新消息</NuxtLink> -->
+        <NuxtLink to="/newses" class="hover:text-colorSecondary">最新消息</NuxtLink>
         <NuxtLink to="/about" class="hover:text-colorSecondary">關於我們</NuxtLink>
         <NuxtLink to="/contact" class="hover:text-colorSecondary">聯絡我們</NuxtLink>
       </div>
       <div class="hidden flex-col space-y-4 text-center md:flex md:w-2/12">
         <h4 class="underline underline-offset-8">服務項目</h4>
-        <NuxtLink to="/" class="hover:text-colorSecondary">會員權益</NuxtLink>
-        <NuxtLink to="/" class="hover:text-colorSecondary">購物須知</NuxtLink>
-        <NuxtLink to="/" class="hover:text-colorSecondary">配送問題</NuxtLink>
-        <NuxtLink to="/" class="hover:text-colorSecondary">常見問題</NuxtLink>
+        <NuxtLink to="/terms" class="hover:text-colorSecondary">服務條款</NuxtLink>
+        <NuxtLink to="/shoppingnotice" class="hover:text-colorSecondary">購物須知</NuxtLink>
+        <NuxtLink to="/faq" class="hover:text-colorSecondary">常見問題</NuxtLink>
       </div>
       <div class="hidden flex-col space-y-4 md:flex md:w-4/12 lg:w-3/12">
         <h4 class="underline underline-offset-8">訂閱我們</h4>
