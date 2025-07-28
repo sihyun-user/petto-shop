@@ -5,7 +5,7 @@
         <div>
           <NuxtLink to="/" title="logo" class="flex items-center gap-3 text-white">
             <SvgMainLogo class="h-10 w-auto" />
-            <span class="text-[26px] font-bold">Peto Shop</span>
+            <span class="text-[26px] font-bold">Petto Shop</span>
           </NuxtLink>
           <p class="mb-3 text-2xl font-semibold">為毛孩選對每一天</p>
           <div class="flex items-center space-x-2">

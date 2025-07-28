@@ -4,7 +4,7 @@
       <div class="flex h-16 items-center justify-between">
         <NuxtLink to="/" title="logo" class="flex items-center gap-3 text-colorBlack">
           <SvgMainLogo class="h-8 w-auto md:h-10" />
-          <span class="text-[20px] font-bold md:text-[22px] lg:text-[26px]">Peto Shop</span>
+          <span class="text-[20px] font-bold md:text-[22px] lg:text-[26px]">petto Shop</span>
         </NuxtLink>
 
         <nav class="hidden h-full items-center gap-6 md:flex">
