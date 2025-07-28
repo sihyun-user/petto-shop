@@ -73,7 +73,7 @@
   </div>
 </template>
 <script setup lang="ts">
-useSeoMeta({
+usePageSeo({
   title: '首頁'
 })
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <LayoutBannerBreadcrumb title="寵物專欄" :links="[{ label: '寵物專欄' }]" />
-    <section v-if="articles?.length > 0" class="container py-[40px]">
+    <section v-if="articles && articles?.length > 0" class="container py-[40px]">
       <div class="mb-10 grid gap-4 xs:grid-cols-2 lg:grid-cols-3">
         <template v-for="article in articles" :key="article.id">
           <UiArticleCard :article="article" />
@@ -23,7 +23,7 @@ usePageSeo({
   title: '寵物專欄'
 })
 
-const { data: articles } = await useAsyncData('articles', async () => {
+const { data: articles } = await useAsyncData('articles-list', async () => {
   const { data, error } = await supbase
     .from('articles')
     .select('*')
