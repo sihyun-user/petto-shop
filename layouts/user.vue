@@ -6,6 +6,7 @@
         <UTabs
           :items="items"
           :selected="selectedIndex"
+          :default-index="selectedIndex"
           :ui="{
             list: {
               base: 'border border-colorGray mb-4',
@@ -53,7 +54,6 @@ const selectedIndex = ref(0)
 
 const updateSelectedIndex = (path: string) => {
   selectedIndex.value = path.includes('/orders') ? 1 : 0
-  console.log('Selected Index Updated:', selectedIndex.value)
 }
 
 const onChange = (index: number) => {

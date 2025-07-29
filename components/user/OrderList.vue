@@ -65,7 +65,11 @@ const { user } = storeToRefs(userStore)
 
 const { data: orderData } = await useAsyncData<Order[]>('orders', async () => {
   if (!user.value) return []
-  const { data, error } = await supabase.from('orders').select('*').eq('user_id', user.value.id)
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('user_id', user.value.id)
+    .order('created_at', { ascending: false })
 
   return error || !data ? [] : data
 })
